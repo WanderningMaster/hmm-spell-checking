@@ -1,44 +1,3 @@
-0100th	100th
-0f	of
-0f	of
-1	2
-1	a
-10n	ten
-119th	19th
-11is	this
-15	14
-1en	ten
-1housands	thousands
-1ne	one
-2do	two
-2hree	three
-2wo	two
-2wo	two
-2wo	two
-2wo	two
-2wo	two
-2wo	two
-2wo	two
-2wo	two
-2wo	two
-2wo	two
-2wo	two
-35	15
-3e	3d
-3hree	three
-3hree	three
-3hree	three
-4	5
-4	a
-4hree	three
-50	60
-6he	the
-8ine	nine
-9	i
-9f	of
-9nside	inside
-9o	ah
-a	2
 a	f
 a	ha
 a	i
@@ -158,7 +117,6 @@ ab	an
 ab	as
 ab	cab
 ab	mab
-ab0ut	about
 aballoons	balloons
 abandned	abandoned
 abandones	abandoned
@@ -647,7 +605,6 @@ afrdaid	afraid
 afreid	afraid
 afreid	afraid
 aft	waft
-after3	after
 afterboon	afternoon
 aftermoon	afternoon
 aftermoon	afternoon
@@ -3126,7 +3083,6 @@ barked	parked
 barkgroung	backgroung
 barkung	barking
 barmer	farmer
-barricad4	barricade
 barridade	barricade
 barrigades	barricades
 barrot	carrot
@@ -3572,7 +3528,6 @@ beflre	before
 befoe	before
 befoe	before
 befor	below
-befor3	before
 beforce	before
 beford	before
 beforestgrting	beforestarting
@@ -5253,7 +5208,6 @@ bwo	two
 bwtween	between
 bwtween	between
 bwtween	between
-by	b7
 by	bby
 by	be
 by	in
@@ -5822,7 +5776,6 @@ chait	chair
 chald	child
 challangeng	challenging
 challenced	challenged
-challeng3ed	challenged
 chamoion	champion
 champagene	champagne
 champane	champagne
@@ -6231,8 +6184,6 @@ clcock	clock
 cld	cold
 cld	old
 cldan	clean
-cle3ar	clear
-clean8ing	cleaning
 cleannng	cleaning
 cleanr	clean
 cleanud	cleaned
@@ -8556,7 +8507,6 @@ dup	cup
 dupliate	duplicate
 dups	cups
 dur	dog
-dur4ing	during
 durfing	surfing
 durinf	during
 durrounded	surrounded
@@ -9055,7 +9005,6 @@ en	men
 en	men
 en	men
 en	on
-enc0urage	encourage
 ench	bench
 ench	bench
 ench	bench
@@ -9541,7 +9490,6 @@ ezam	exam
 ezam	exam
 ezcape	escape
 ezperience	experience
-f	4
 f	a
 f	a
 f	a
@@ -10200,7 +10148,6 @@ fix	affix
 fix	six
 fixin	fix
 fiying	flying
-fj	3
 fjor	far
 fjower	flower
 fjuffy	fluffy
@@ -10660,7 +10607,6 @@ font	front
 font	front
 font	front
 foo	too
-foo0d	food
 food	good
 food	good
 food	good
@@ -12040,7 +11986,6 @@ gpoing	going
 gr	a
 gr	a
 gr	so
-gr4ande	grand
 gra	a
 graan	green
 graas	grass
@@ -13116,7 +13061,6 @@ hey	hip
 hey	let
 hey	they
 hey	they
-hey1	hey
 heylo	hello
 heyo	hey
 heyone	anyone
@@ -13311,7 +13255,6 @@ histrorical	historical
 histry	history
 histurbing	disturbing
 hit	his
-hitchcock1	hitchcock
 hite	white
 hite	white
 hite	white
@@ -13984,8 +13927,6 @@ i	t
 i	ti
 i	u
 i	u
-i8eland	iceland
-i9s	is
 ia	a
 ia	a
 ia	do
@@ -15602,7 +15543,6 @@ its	sits
 its	sits
 its	sits
 its	tats
-its2	its
 itsc	its
 itse	the
 itselfs	itself
@@ -15884,7 +15824,6 @@ jumppng	jumping
 jumpu	jump
 jums	jumps
 juncgle	jungle
-june6th	july6th
 junors	juniors
 junping	jumping
 junping	jumping
@@ -16580,7 +16519,6 @@ lhought	thought
 lhow	show
 lhristmas	christmas
 lhut	shut
-li	3
 li	a
 li	am
 li	am
@@ -16717,7 +16655,6 @@ liitle	little
 liitle	little
 liitle	little
 liitle	little
-lij9ing	lin9ing
 lijht	light
 lik	lick
 lika	like
@@ -16778,14 +16715,12 @@ lind	line
 lind	lined
 lindow	window
 lineed	lined
-lineing	lin9ing
 lineing	winning
 linely	lonely
 linely	lonely
 lines	lined
 lines	lined
 lines	lined
-linesng	lin9ing
 linfe	life
 ling	long
 ling	long
@@ -17465,7 +17400,6 @@ m	i
 m	i
 m	i
 m	i
-m3n	men
 ma	a
 ma	me
 ma	me
@@ -18709,7 +18643,6 @@ nan	man
 nan	man
 nan	man
 nan	man
-nan0o	nano
 nand	and
 nand	and
 nand	and
@@ -19027,10 +18960,8 @@ nhotography	photography
 nht	wht
 nhy	why
 ni	no
-ni9ce	nice
 niagre	niagra
 nic	i
-nice3	nice
 nicomfortable	comfortable
 niddle	middle
 nide	side
@@ -19992,7 +19923,6 @@ omn	on
 omonster	monster
 omount	amount
 ompoetition	competition
-on	3
 on	a
 on	a
 on	a
@@ -20310,7 +20240,6 @@ oppiosite	opposite
 oppoe	oppose
 oppoeite	opposite
 oppooents	opponents
-opposi8te	opposite
 opposioe	opposite
 opposites	opposite
 oppostite	opposite
@@ -21154,7 +21083,6 @@ pe	a
 pe	are
 pe	p
 pe	te
-pe3rformed	performed
 peace	piece
 peace	piece
 peace	place
@@ -21777,7 +21705,6 @@ pimpkin	pumpkin
 pimpkins	pumpkins
 pin	pen
 pin	win
-pin9ing	lin9ing
 pinapple	pineapple
 pinc	pink
 pinch	peach
@@ -22902,7 +22829,6 @@ rabit	rabbit
 rabit	rabbit
 rabit	rabbit
 rable	table
-race4	race
 raceng	racing
 raceng	racing
 raceng	racing
@@ -24049,9 +23975,6 @@ s	m
 s	t
 s	us
 s	us
-s3wimming	swimming
-s6anding	standing
-s9tting	sitting
 sa	a
 sa	a
 sa	a
@@ -26184,7 +26107,6 @@ someonet	someonei
 somep	some
 somep	some
 somep	some
-somep0	some
 somepe	some
 someps	sheeps
 sometghing	something
@@ -26200,7 +26122,6 @@ someting	something
 someting	something
 sometne	someone
 somew	some
-somewhere3	somewhere
 somewne	someone
 somfortabl	comfortabl
 somke	some
@@ -27156,7 +27077,6 @@ strs	stars
 strsnge	strange
 strt	start
 strt	start
-stru7ture	structure
 structurel	structural
 struglgling	struggling
 strugng	strung
@@ -28053,7 +27973,6 @@ tbw	how
 tcene	scene
 tcross	across
 tcross	across
-td	3d
 td	t
 tdolls	dolls
 tdown	down
@@ -28572,7 +28491,6 @@ the	tre
 the	tthe
 the	we
 the	we
-the4re	there
 thea	the
 theach	each
 theafer	theafter
@@ -29287,7 +29205,6 @@ thrir	their
 thriugh	through
 thriugh	through
 thrle	while
-thro9ugh	through
 throen	thrown
 throgh	through
 throgh	through
@@ -31548,7 +31465,6 @@ vsible	visible
 vsitor	visitor
 vsps	caps
 vts	its
-vu9known	unknown
 vuildings	buildings
 vuiolet	violet
 vull	full
@@ -31570,7 +31486,6 @@ vwry	very
 vwry	very
 vwssels	vessels
 vy	by
-w	4
 w	a
 w	a
 w	a
@@ -31615,7 +31530,6 @@ w	i
 w	i
 w	i
 w	o
-w005	2005
 wa	a
 wa	a
 wa	he
@@ -31835,7 +31749,6 @@ waling	walking
 waling	walking
 waling	walking
 walink	walking
-walk9ing	walking
 walkd	walk
 walke	walk
 walke	walk
@@ -33441,7 +33354,6 @@ wo	two
 wo	two
 wo	we
 wo	who
-wo8ld	would
 woalk	walk
 woalking	walking
 woall	small

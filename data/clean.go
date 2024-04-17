@@ -11,7 +11,7 @@ import (
 
 func hasSpecial(str string) bool {
 	for _, char := range str {
-		if unicode.IsPunct(char) || unicode.IsSymbol(char) {
+		if unicode.IsPunct(char) || unicode.IsSymbol(char) || unicode.IsDigit(char) {
 			return true
 		}
 	}
