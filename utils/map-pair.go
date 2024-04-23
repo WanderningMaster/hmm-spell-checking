@@ -7,12 +7,12 @@ import (
 )
 
 type Tuple struct {
-	First  rune
-	Second rune
+	Observed rune
+	State    rune
 }
 
 func (t Tuple) String() string {
-	return fmt.Sprintf("(%s, %s) ", strconv.QuoteRune(t.First), strconv.QuoteRune(t.Second))
+	return fmt.Sprintf("(%s, %s) ", strconv.QuoteRune(t.Observed), strconv.QuoteRune(t.State))
 }
 
 func bigger(strs []string) int {
@@ -42,8 +42,8 @@ func MapWordPair(line string) ([]Tuple, error) {
 			chWord = rune(word[ptr])
 		}
 		records = append(records, Tuple{
-			First:  chTypo,
-			Second: chWord,
+			Observed: chTypo,
+			State:    chWord,
 		})
 	}
 

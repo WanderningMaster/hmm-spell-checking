@@ -1,6 +1,9 @@
 package hmm
 
 import (
+	"bytes"
+	"encoding/gob"
+	"errors"
 	"fmt"
 	"io"
 	"log"
@@ -12,26 +15,56 @@ import (
 
 type HMM struct {
 	data            [][]utils.Tuple
+	ready           bool
 	TransitionProbs map[rune]map[rune]float64
 	EmissionProbs   map[rune]map[rune]float64
 	InitProbs       map[rune]float64
-	cache           bool
-}
-type HMMConf struct {
-	fromCache bool
 }
 
-func New(conf HMMConf) *HMM {
+var (
+	ModelIsNotReadyYet = errors.New("model is not ready yet")
+	CacheNotFound      = errors.New("cache not found")
+	FailedToLoadCache  = errors.New("failed to load cache")
+)
+
+func New(withFuncs ...func(m *HMM) error) (*HMM, error) {
 	model := &HMM{
+		ready:           false,
 		data:            [][]utils.Tuple{},
 		TransitionProbs: make(map[rune]map[rune]float64),
 		EmissionProbs:   make(map[rune]map[rune]float64),
 		InitProbs:       map[rune]float64{},
 	}
+	for _, fn := range withFuncs {
+		err := fn(model)
+		if err != nil {
+			return nil, err
+		}
+	}
 
-	return model
+	return model, nil
 }
-func WithCache()
+func WithCache(m *HMM) error {
+	log.Printf("Loading model from cache...")
+
+	buff, err := os.ReadFile("cache/model.bin")
+	if err != nil {
+		return CacheNotFound
+	}
+	var b bytes.Buffer
+	_, err = b.Write(buff)
+	utils.Require(err)
+
+	dec := gob.NewDecoder(&b)
+	err = dec.Decode(m)
+
+	if err != nil {
+		return fmt.Errorf("%s: %v", FailedToLoadCache.Error(), err)
+	}
+	m.ready = true
+
+	return nil
+}
 
 func (m *HMM) Load(data []string) {
 	for _, s := range data {
@@ -42,6 +75,23 @@ func (m *HMM) Load(data []string) {
 	m.calcTransitionMatrix()
 	m.calcEmissionMatrix()
 	m.calcInitialMatrix()
+	m.CacheModel()
+
+	m.ready = true
+}
+
+func (m *HMM) CacheModel() {
+	file, err := os.Create("cache/model.bin")
+	utils.Require(err)
+	defer file.Close()
+
+	var b bytes.Buffer
+
+	enc := gob.NewEncoder(&b)
+	err = enc.Encode(*m)
+	utils.Require(err)
+
+	file.Write(b.Bytes())
 }
 
 type LogConfig struct {
@@ -49,7 +99,10 @@ type LogConfig struct {
 	ProbMatrix int
 }
 
-func (m *HMM) LogProbs(conf LogConfig) {
+func (m *HMM) LogProbs(conf LogConfig) error {
+	if !m.ready {
+		return ModelIsNotReadyYet
+	}
 	switch conf.ProbMatrix {
 	case 1:
 		m.LogTransitionMatrix(conf.Outs)
@@ -58,8 +111,10 @@ func (m *HMM) LogProbs(conf LogConfig) {
 	case 3:
 		m.LogInitializationMatrix(conf.Outs)
 	default:
-		log.Fatal("unknown prob matrix")
+		return fmt.Errorf("unknown prob matrix")
 	}
+
+	return nil
 }
 
 func (m *HMM) LogTransitionMatrix(outs *os.File) {
@@ -100,8 +155,8 @@ func (m *HMM) calcTransitionMatrix() {
 	transitionCounts := make(map[rune]map[rune]int)
 	for _, seq := range m.data {
 		for i := 0; i < len(seq)-1; i += 1 {
-			fromState := seq[i].Second
-			toState := seq[i+1].Second
+			fromState := seq[i].State
+			toState := seq[i+1].State
 
 			if _, ok := transitionCounts[fromState]; !ok {
 				transitionCounts[fromState] = make(map[rune]int)
@@ -132,18 +187,18 @@ func (m *HMM) calcEmissionMatrix() {
 	emissionCounts := make(map[rune]map[rune]int)
 	for _, seq := range m.data {
 		for i := 0; i < len(seq); i += 1 {
-			observed := seq[i].First
-			actual := seq[i].Second
+			observed := seq[i].Observed
+			state := seq[i].State
 
-			if _, ok := emissionCounts[actual]; !ok {
-				emissionCounts[actual] = make(map[rune]int)
+			if _, ok := emissionCounts[state]; !ok {
+				emissionCounts[state] = make(map[rune]int)
 			}
 
-			if _, ok := emissionCounts[actual][observed]; !ok {
-				emissionCounts[actual][observed] = 0
+			if _, ok := emissionCounts[state][observed]; !ok {
+				emissionCounts[state][observed] = 0
 			}
 
-			emissionCounts[actual][observed] += 1
+			emissionCounts[state][observed] += 1
 		}
 	}
 
@@ -163,7 +218,7 @@ func (m *HMM) calcEmissionMatrix() {
 func (m *HMM) calcInitialMatrix() {
 	initialCounts := make(map[rune]int)
 	for _, seq := range m.data {
-		state := seq[0].Second
+		state := seq[0].State
 		if _, ok := initialCounts[state]; !ok {
 			initialCounts[state] = 0
 		}
