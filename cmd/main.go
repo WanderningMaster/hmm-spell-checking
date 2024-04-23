@@ -1,19 +1,30 @@
 package main
 
 import (
-	"fmt"
+	"log"
+	"os"
 
-	"github.com/WanderningMaster/hmm-spell-checking/utils"
+	"github.com/WanderningMaster/hmm-spell-checking/internal/hmm"
 )
 
 func main() {
-	pairs := []string{
-		"aeriplane	aeroplane",
-		"aerolane	aeroplane",
-	}
 
-	for _, s := range pairs {
-		records, _ := utils.MapWordPair(s)
-		fmt.Println(records)
+	pairs := []string{
+		"actoss	across",
+		"actualll	actually",
+		"actuallu	actually",
+		"acuarium	aquarium",
+		"cay	cat",
 	}
+	model := hmm.New()
+	model.Load(pairs)
+
+	f, err := os.Create("cache/transition_probs.txt")
+	if err != nil {
+		log.Fatal(err)
+	}
+	model.LogProbs(hmm.LogConfig{
+		Outs:       f,
+		ProbMatrix: 1,
+	})
 }
