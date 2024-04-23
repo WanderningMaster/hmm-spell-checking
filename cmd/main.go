@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/WanderningMaster/hmm-spell-checking/internal/hmm"
+	"github.com/WanderningMaster/hmm-spell-checking/internal/logger"
 	"github.com/WanderningMaster/hmm-spell-checking/utils"
 )
 
@@ -29,16 +30,19 @@ func getPairs() []string {
 }
 
 func loadModel(withLogs bool) *hmm.HMM {
+	logger := logger.GetLogger()
 	pairs := getPairs()
 	start := time.Now()
 	model, err := hmm.New(hmm.WithCache)
 	if err != nil {
-		fmt.Printf("Err: %v, skipping...\n", err)
+		logger.Warn(fmt.Sprintf("Err: %v, skipping...", err))
 		model, _ = hmm.New()
 
 		model.Load(pairs)
 	}
-	fmt.Println("Loaded model into memory in:", time.Since(start))
+	logger.Info(
+		fmt.Sprintf("Loaded model into memory in: %s", time.Since(start)),
+	)
 
 	if withLogs {
 		logProbs(model)
@@ -48,7 +52,8 @@ func loadModel(withLogs bool) *hmm.HMM {
 }
 
 func logProbs(model *hmm.HMM) {
-	fmt.Println("Writing probs to fs...")
+	logger := logger.GetLogger()
+	logger.Info("Writing probs to fs...")
 
 	f1, _ := os.Create("cache/transition_probs.txt")
 	f2, _ := os.Create("cache/emission_probs.txt")
@@ -69,7 +74,7 @@ func logProbs(model *hmm.HMM) {
 	})
 	utils.Require(err)
 
-	fmt.Println("Finished.")
+	logger.Info("Finished.")
 }
 
 func main() {

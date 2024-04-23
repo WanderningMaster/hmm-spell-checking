@@ -6,10 +6,10 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"log"
 	"os"
 	"strconv"
 
+	"github.com/WanderningMaster/hmm-spell-checking/internal/logger"
 	"github.com/WanderningMaster/hmm-spell-checking/utils"
 )
 
@@ -45,7 +45,8 @@ func New(withFuncs ...func(m *HMM) error) (*HMM, error) {
 	return model, nil
 }
 func WithCache(m *HMM) error {
-	log.Printf("Loading model from cache...")
+	logger := logger.GetLogger()
+	logger.Info("Loading model from cache...")
 
 	buff, err := os.ReadFile("cache/model.bin")
 	if err != nil {
