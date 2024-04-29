@@ -40,6 +40,7 @@ func main() {
 	for scanner.Scan() {
 		line := scanner.Text()
 		initialLen += 1
+
 		if !hasSpecial(line) {
 			outLen += 1
 			wHandle.WriteString(strings.ToLower(line) + "\n")

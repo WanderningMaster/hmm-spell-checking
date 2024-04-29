@@ -18,7 +18,7 @@ func configure() *slog.Logger {
 	logger := slog.New(
 		tint.NewHandler(w, &tint.Options{
 			Level:      slog.LevelDebug,
-			TimeFormat: time.Kitchen,
+			TimeFormat: time.RFC822,
 		}),
 	)
 

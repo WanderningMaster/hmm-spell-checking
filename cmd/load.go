@@ -1,4 +1,4 @@
-package main
+package cmd
 
 import (
 	"bufio"
@@ -29,8 +29,9 @@ func getPairs() []string {
 	return pairs
 }
 
-func loadModel(withLogs bool) *hmm.HMM {
+func LoadModel(withLogs bool) *hmm.HMM {
 	logger := logger.GetLogger()
+
 	pairs := getPairs()
 	start := time.Now()
 	model, err := hmm.New(hmm.WithCache)
@@ -53,11 +54,16 @@ func loadModel(withLogs bool) *hmm.HMM {
 
 func logProbs(model *hmm.HMM) {
 	logger := logger.GetLogger()
+
 	logger.Info("Writing probs to fs...")
 
 	f1, _ := os.Create("cache/transition_probs.txt")
 	f2, _ := os.Create("cache/emission_probs.txt")
 	f3, _ := os.Create("cache/init_probs.txt")
+	defer f1.Close()
+	defer f2.Close()
+	defer f3.Close()
+
 	err := model.LogProbs(hmm.LogConfig{
 		Outs:       f1,
 		ProbMatrix: 1,
@@ -75,8 +81,4 @@ func logProbs(model *hmm.HMM) {
 	utils.Require(err)
 
 	logger.Info("Finished.")
-}
-
-func main() {
-	loadModel(true)
 }

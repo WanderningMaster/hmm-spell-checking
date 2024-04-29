@@ -6,6 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"math"
 	"os"
 	"strconv"
 
@@ -13,18 +14,24 @@ import (
 	"github.com/WanderningMaster/hmm-spell-checking/utils"
 )
 
+type Coord struct {
+	X, Y float64
+}
+
 type HMM struct {
 	data            [][]utils.Tuple
 	ready           bool
 	TransitionProbs map[rune]map[rune]float64
 	EmissionProbs   map[rune]map[rune]float64
 	InitProbs       map[rune]float64
+	KeyboardLayout  map[rune]Coord
 }
 
 var (
 	ModelIsNotReadyYet = errors.New("model is not ready yet")
 	CacheNotFound      = errors.New("cache not found")
 	FailedToLoadCache  = errors.New("failed to load cache")
+	UnknownProbMatrix  = errors.New("unknown prob matrix")
 )
 
 func New(withFuncs ...func(m *HMM) error) (*HMM, error) {
@@ -65,6 +72,15 @@ func WithCache(m *HMM) error {
 	m.ready = true
 
 	return nil
+}
+
+func CalculateDistance(a, b rune, layout map[rune]Coord) float64 {
+	if a == b {
+		return 0
+	}
+	ax, ay := layout[a].X, layout[a].Y
+	bx, by := layout[b].X, layout[b].Y
+	return math.Sqrt(math.Pow(ax-bx, 2) + math.Pow(ay-by, 2))
 }
 
 func (m *HMM) Load(data []string) {
@@ -112,7 +128,7 @@ func (m *HMM) LogProbs(conf LogConfig) error {
 	case 3:
 		m.LogInitializationMatrix(conf.Outs)
 	default:
-		return fmt.Errorf("unknown prob matrix")
+		return UnknownProbMatrix
 	}
 
 	return nil
