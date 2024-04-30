@@ -18,27 +18,6 @@ func getStates() []rune {
 	return alphabet
 }
 
-func testData() [][]rune {
-	dataStr := []string{
-		"abd",
-		"hrlp",
-		"wrdding",
-		"vook",
-		"nark",
-		"traon",
-		"alpja",
-		"pjone",
-		"jite",
-	}
-
-	dataRunes := [][]rune{}
-	for _, str := range dataStr {
-		dataRunes = append(dataRunes, []rune(str))
-	}
-
-	return dataRunes
-}
-
 func getRunes(input string) [][]rune {
 	dataStr := strings.Split(input, " ")
 	dataRunes := [][]rune{}
@@ -51,6 +30,10 @@ func getRunes(input string) [][]rune {
 
 func main() {
 	hmm := cmd.LoadModel(true)
+	voc := cmd.LoadVocabulary()
+
+	exists, _ := voc.WordExists("zwitterionic")
+	fmt.Printf("Word %s is %v\n", "zwitterionic", exists)
 
 	input := "tirture"
 

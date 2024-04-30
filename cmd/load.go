@@ -8,6 +8,7 @@ import (
 
 	"github.com/WanderningMaster/hmm-spell-checking/internal/hmm"
 	"github.com/WanderningMaster/hmm-spell-checking/internal/logger"
+	"github.com/WanderningMaster/hmm-spell-checking/internal/vocabulary"
 	"github.com/WanderningMaster/hmm-spell-checking/utils"
 )
 
@@ -27,6 +28,24 @@ func getPairs() []string {
 	}
 
 	return pairs
+}
+
+func getRawVocabulary() []string {
+	rHandle, err := os.Open("data/words_alpha.txt")
+	defer rHandle.Close()
+
+	utils.Require(err)
+
+	scanner := bufio.NewScanner(rHandle)
+	scanner.Split(bufio.ScanLines)
+
+	words := []string{}
+	for scanner.Scan() {
+		line := scanner.Text()
+		words = append(words, line)
+	}
+
+	return words
 }
 
 func LoadModel(withLogs bool) *hmm.HMM {
@@ -50,6 +69,22 @@ func LoadModel(withLogs bool) *hmm.HMM {
 	}
 
 	return model
+}
+
+func LoadVocabulary() *vocabulary.Vocabulary {
+	logger := logger.GetLogger()
+
+	start := time.Now()
+
+	words := getRawVocabulary()
+	voc := vocabulary.New()
+	voc.Load(words)
+
+	logger.Info(
+		fmt.Sprintf("Loaded vocabulary into memory in: %s", time.Since(start)),
+	)
+
+	return voc
 }
 
 func logProbs(model *hmm.HMM) {
