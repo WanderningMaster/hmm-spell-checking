@@ -28,11 +28,11 @@ func New() *Vocabulary {
 /*
 	 NOTE: cant use gob encoding because trie may have nil elements
 		in children array which causes crushes.
-		In terms of server its not such big of a deal but
+		In terms of server startup its not such big of a deal but
 		for cli implementation can be annoying
 */
 func (v *Vocabulary) Load(data []string) {
-	// runs ~500ms-1s
+	// runs ~100ms-200ms
 	for _, w := range data {
 		v.trie.Insert(w)
 	}

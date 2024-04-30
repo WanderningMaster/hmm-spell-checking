@@ -74,14 +74,20 @@ func LoadModel(withLogs bool) *hmm.HMM {
 func LoadVocabulary() *vocabulary.Vocabulary {
 	logger := logger.GetLogger()
 
+	logger.Info("Loading vocabulary into memory")
+
 	start := time.Now()
 
 	words := getRawVocabulary()
 	voc := vocabulary.New()
 	voc.Load(words)
+	// voc, err := vocabulary.NewFromCache()
+	// if err != nil {
+	// 	logger.Warn(fmt.Sprintf("Err: %v, skipping...", err))
+	// }
 
 	logger.Info(
-		fmt.Sprintf("Loaded vocabulary into memory in: %s", time.Since(start)),
+		fmt.Sprintf("Finished in: %s", time.Since(start)),
 	)
 
 	return voc

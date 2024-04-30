@@ -32,18 +32,17 @@ func main() {
 	hmm := cmd.LoadModel(true)
 	voc := cmd.LoadVocabulary()
 
-	exists, _ := voc.WordExists("zwitterionic")
-	fmt.Printf("Word %s is %v\n", "zwitterionic", exists)
-
-	input := "tirture"
+	input := "wrddinh"
 
 	fmt.Printf("Observed: %s\n", input)
 	candidates := viterbi.ViterbiNBest([]rune(input), hmm, 10)
 
 	best := candidates[0]
-	fmt.Printf("Best: %s\n", string(best))
+	exists, _ := voc.WordExists(string(best))
+	fmt.Printf("Best: %s, Real word: %v\n", string(best), exists)
 	fmt.Printf("\nOther Candidates:\n")
 	for _, c := range candidates[1:] {
-		fmt.Printf("%s\n", string(c))
+		exists, _ = voc.WordExists(string(c))
+		fmt.Printf("%s, Real word: %v\n", string(c), exists)
 	}
 }

@@ -1,10 +1,10 @@
 package utils
 
-// size of byte to cover at least ASCII symbols
-const MAX_CHILDREN = 256
+// size of bytes to cover english alphabet
+const MAX_CHILDREN = 26
 
 type node struct {
-	children [256]*node
+	children [MAX_CHILDREN]*node
 	terminal bool
 }
 
