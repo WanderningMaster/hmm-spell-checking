@@ -1,4 +1,4 @@
-package cmd
+package services
 
 import (
 	"bufio"
@@ -8,9 +8,20 @@ import (
 
 	"github.com/WanderningMaster/hmm-spell-checking/internal/hmm"
 	"github.com/WanderningMaster/hmm-spell-checking/internal/logger"
+	"github.com/WanderningMaster/hmm-spell-checking/internal/viterbi"
 	"github.com/WanderningMaster/hmm-spell-checking/internal/vocabulary"
 	"github.com/WanderningMaster/hmm-spell-checking/utils"
 )
+
+type SpellChecker struct {
+	maxVariants int
+	hmm         *hmm.HMM
+	voc         *vocabulary.Vocabulary
+}
+type Candidate struct {
+	Best     string
+	Variants []string
+}
 
 func getPairs() []string {
 	rHandle, err := os.Open("data/en_keystrokes_pairs_clean.txt")
@@ -48,7 +59,7 @@ func getRawVocabulary() []string {
 	return words
 }
 
-func LoadModel(withLogs bool) *hmm.HMM {
+func loadModel(withLogs bool) *hmm.HMM {
 	logger := logger.GetLogger()
 
 	pairs := getPairs()
@@ -71,7 +82,7 @@ func LoadModel(withLogs bool) *hmm.HMM {
 	return model
 }
 
-func LoadVocabulary() *vocabulary.Vocabulary {
+func loadVocabulary() *vocabulary.Vocabulary {
 	logger := logger.GetLogger()
 
 	logger.Info("Loading vocabulary into memory")
@@ -81,10 +92,6 @@ func LoadVocabulary() *vocabulary.Vocabulary {
 	words := getRawVocabulary()
 	voc := vocabulary.New()
 	voc.Load(words)
-	// voc, err := vocabulary.NewFromCache()
-	// if err != nil {
-	// 	logger.Warn(fmt.Sprintf("Err: %v, skipping...", err))
-	// }
 
 	logger.Info(
 		fmt.Sprintf("Finished in: %s", time.Since(start)),
@@ -122,4 +129,41 @@ func logProbs(model *hmm.HMM) {
 	utils.Require(err)
 
 	logger.Info("Finished.")
+}
+
+func NewSpellChecker(maxVariant int) *SpellChecker {
+	hmm := loadModel(true)
+	voc := loadVocabulary()
+
+	return &SpellChecker{
+		hmm:         hmm,
+		voc:         voc,
+		maxVariants: maxVariant,
+	}
+}
+
+func (s *SpellChecker) Correct(word string) (Candidate, error) {
+	candidates := viterbi.ViterbiNBest(
+		[]rune(word),
+		s.hmm,
+		s.maxVariants,
+	)
+
+	var res Candidate
+	best := candidates[0]
+	exists, _ := s.voc.WordExists(string(best))
+	if exists {
+		res.Best = string(best)
+	}
+
+	for _, c := range candidates[1:] {
+		exists, _ = s.voc.WordExists(string(c))
+		if exists && res.Best == "" {
+			res.Best = string(c)
+		} else if exists {
+			res.Variants = append(res.Variants, string(c))
+		}
+	}
+
+	return res, nil
 }
