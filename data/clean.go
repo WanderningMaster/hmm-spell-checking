@@ -23,8 +23,8 @@ func hasSpecial(str string) bool {
 func main() {
 	logger := logger.GetLogger()
 
-	rHandle, err := os.Open("en_keystrokes_pairs.txt")
-	wHandle, err := os.Create("en_keystrokes_pairs_clean.txt")
+	rHandle, err := os.Open("data/en_keystrokes_pairs.txt")
+	wHandle, err := os.Create("data/en_keystrokes_pairs_clean.txt")
 	defer rHandle.Close()
 	defer wHandle.Close()
 
@@ -42,8 +42,14 @@ func main() {
 		initialLen += 1
 
 		if !hasSpecial(line) {
-			outLen += 1
-			wHandle.WriteString(strings.ToLower(line) + "\n")
+			words := strings.Fields(line)
+
+			// only substituion and inserrtion
+			// not sure how hmm can solve deletion problem
+			if len(words[0]) >= len(words[1]) {
+				outLen += 1
+				wHandle.WriteString(strings.ToLower(line) + "\n")
+			}
 		}
 	}
 

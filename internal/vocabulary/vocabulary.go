@@ -12,8 +12,6 @@ type Vocabulary struct {
 
 var (
 	VocabularyIsNotReadyYet = errors.New("vocabulary is not ready yet")
-	CacheNotFound           = errors.New("cache not found")
-	FailedToLoadCache       = errors.New("failed to load cache")
 )
 
 func New() *Vocabulary {
