@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"strings"
 	"time"
 
 	"github.com/WanderningMaster/hmm-spell-checking/internal/hmm"
@@ -19,6 +20,7 @@ type SpellChecker struct {
 	voc         *vocabulary.Vocabulary
 }
 type Candidate struct {
+	Valid    bool
 	Best     string
 	Variants []string
 }
@@ -166,4 +168,29 @@ func (s *SpellChecker) Correct(word string) (Candidate, error) {
 	}
 
 	return res, nil
+}
+
+func (s *SpellChecker) CorrectText(text string) ([]Candidate, int, error) {
+	words := strings.Split(text, " ")
+	candidates := []Candidate{}
+	totalErrors := 0
+	for _, word := range words {
+		exists, _ := s.voc.WordExists(word)
+		if exists {
+			candidate := Candidate{
+				Valid: true,
+				Best:  word,
+			}
+			candidates = append(candidates, candidate)
+			continue
+		}
+		candidate, err := s.Correct(word)
+		if err != nil {
+			return nil, 0, err
+		}
+		candidates = append(candidates, candidate)
+		totalErrors += 1
+	}
+
+	return candidates, totalErrors, nil
 }
