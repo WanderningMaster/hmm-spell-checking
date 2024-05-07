@@ -6,6 +6,7 @@ import (
 	"github.com/WanderningMaster/hmm-spell-checking/services"
 	"github.com/WanderningMaster/hmm-spell-checking/utils"
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 )
 
 type SpellCheckResponse struct {
@@ -15,6 +16,10 @@ type SpellCheckResponse struct {
 
 func StartServer() {
 	e := echo.New()
+	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+		AllowOrigins: []string{"http://localhost:5173"},
+		AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
+	}))
 	spellChecker := services.NewSpellChecker(10)
 
 	e.GET("api/spell-check", func(c echo.Context) error {

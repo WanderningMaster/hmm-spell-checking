@@ -62,6 +62,7 @@ export const TextOverlay = () => {
 		<div style={{ position: 'relative', width: '100%' }}>
 			<textarea
 				maxLength={100}
+				spellCheck={false}
 				rows={5}
 				cols={5}
 				wrap={"hard"}

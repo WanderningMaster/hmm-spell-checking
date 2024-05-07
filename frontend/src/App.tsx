@@ -1,12 +1,10 @@
-import {contentWrapper, rootWrapper} from './App.styles'
-import {TextOverlay} from './components/text-overlay'
+import {rootWrapper} from './App.styles'
+import { TextEditor } from './components/slate'
 
 function App() {
 	return (
 		<div className={rootWrapper}>
-			<div className={contentWrapper}>
-				<TextOverlay/>
-			</div>
+			<TextEditor />
 		</div>
 	)
 }

@@ -20,9 +20,10 @@ type SpellChecker struct {
 	voc         *vocabulary.Vocabulary
 }
 type Candidate struct {
-	Valid    bool
-	Best     string
-	Variants []string
+	Valid    bool     `json:"valid"`
+	Best     string   `json:"best"`
+	Typo     string   `json:"typo"`
+	Variants []string `json:"variants"`
 }
 
 func getPairs() []string {
@@ -152,6 +153,7 @@ func (s *SpellChecker) Correct(word string) (Candidate, error) {
 	)
 
 	var res Candidate
+	res.Typo = word
 	best := candidates[0]
 	exists, _ := s.voc.WordExists(string(best))
 	if exists {

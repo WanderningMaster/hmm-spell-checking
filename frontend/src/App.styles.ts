@@ -2,7 +2,8 @@ import { css } from "@emotion/css";
 
 export const rootWrapper = css`
 	display: flex;
-	widht: 100vw;
+	width: 100vw;
+	height: 100vh;
 `
 
 export const contentWrapper = css`
