@@ -1,11 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useMemo } from 'react'
 import { createEditor, Descendant, NodeEntry, BaseRange, Text, Transforms, Path, Node } from 'slate'
-import { Slate, Editable, withReact } from 'slate-react'
+import { Slate, Editable, withReact, ReactEditor } from 'slate-react'
 import { withHistory } from 'slate-history'
 import { higlightedLeaf, slateStyles } from './slate.styles'
-import { useDebounce } from '../hooks/use-debounce'
-import { Correction, useSpellCheck } from '../hooks/use-spell-check'
+import { Correction, SpellCheckResult } from '../hooks/use-spell-check'
 
 const initialValue: Descendant[] = [
   {
@@ -33,12 +33,12 @@ const Leaf: React.FC<{attributes: any, children: any, leaf: any}> = ({ attribute
 	)
 }
 
-export const TextEditor = () => {
+type TextEditorProps = {
+	setPlainText: (state: string) => void;
+	result: SpellCheckResult | null
+}
+export const TextEditor: React.FC<TextEditorProps> = ({setPlainText, result}) => {
 	const editor = useMemo(() => withHistory(withReact(createEditor())), [])
-	const [plainText, setPlainText] = React.useState("")
-
-	const debouncedText = useDebounce(plainText, 500)
-	const { result } = useSpellCheck(debouncedText)
 
 	const replace = (path: Path, start: number, end: number, correction: Correction) => () => {
 		Transforms.insertText(editor, correction.best, {
@@ -55,6 +55,10 @@ export const TextEditor = () => {
 		setPlainText(text)
 	}
 
+	const focusEditor = () => {
+		ReactEditor.focus(editor)
+	}
+
 	const decorate = React.useCallback(([node, path]: NodeEntry): BaseRange[] => {
 		const ranges: (BaseRange & {highlight: boolean, correction: Correction, replaceFn: () => void})[] = []
 		if(Text.isText(node) && result) {
@@ -64,14 +68,19 @@ export const TextEditor = () => {
 					continue
 				}
 				const word = correction.typo
-				const indexes = [];
 				let match;
 
-				const regex = new RegExp(`\\b${word}\\b`, 'g');
-				while((match = regex.exec(text)) !== null) {
-					indexes.push({ start: match.index, end: match.index + word.length, match: match[0] });
+				let regex: RegExp;
+				try {
+					regex = new RegExp(`\\b${word}\\b`, 'g');
 				}
-				indexes.forEach(({start, end }) => {
+				catch {
+					return []
+				}
+				while((match = regex.exec(text)) !== null) {
+					const start = match.index
+					const end = match.index + word.length
+
 					ranges.push({
 						anchor: { path, offset: end  },
 						focus: { path, offset: start },
@@ -79,12 +88,16 @@ export const TextEditor = () => {
 						correction,
 						replaceFn: replace(path, end, start, correction)
 					});
-				});
+				}
 			}
 		}
 
 		return ranges
 	}, [result])
+
+	React.useEffect(() => {
+		focusEditor()
+	}, [])
 
 	return (
 		<Slate onChange={handleChange} editor={editor} initialValue={initialValue}>

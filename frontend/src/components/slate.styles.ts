@@ -2,9 +2,19 @@ import { css } from "@emotion/css";
 
 export const slateStyles = css`
 	width: 100%;
-	padding: 20px;
-	font-size: 24px;
-	line-height: 24px;
+	font-size: 20px;
+	line-height: 20px;
+	height: 100%;
+	overflow-y: auto;
+	overflow-x: none;
+
+	&::-webkit-scrollbar {
+		display: none;
+	}
+
+	&:focus {
+		outline: none;
+	}
 `
 
 
