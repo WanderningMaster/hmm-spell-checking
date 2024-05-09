@@ -2,8 +2,8 @@ import { css } from "@emotion/css";
 
 export const slateStyles = css`
 	width: 100%;
-	font-size: 20px;
-	line-height: 20px;
+	font-size: 22px;
+	line-height: 22px;
 	height: 100%;
 	overflow-y: auto;
 	overflow-x: none;

@@ -3,6 +3,7 @@ import ErrorIcon from '../assets/error.svg?react'
 import CheckIcon from '../assets/check.svg?react'
 import CheckBlueIcon from '../assets/check-blue.svg?react'
 import { CheckState } from "../hooks/use-spell-check"
+import { ClipboardBtn } from "./clipboard-btn"
 
 type Content = {
 	title: string;
@@ -49,9 +50,10 @@ function matchIcon(state: CheckState) {
 	}
 }
 
-export const CheckingStateCompnent = ({state, totalErrors}: {
+export const CheckingStateCompnent = ({state, totalErrors, plainText}: {
 	state: CheckState,
 	totalErrors: number
+	plainText: string
 }) => {
 	const content = matchText(state, totalErrors)
 	const icon = matchIcon(state)	
@@ -64,7 +66,8 @@ export const CheckingStateCompnent = ({state, totalErrors}: {
 					{content.subtitle && <p className={subtitle}>{content.subtitle}</p>}
 				</div>
 			</div>
-			<div>
+			<div className={section}>
+				<ClipboardBtn disabled={totalErrors !== 0 || plainText.length === 0} text={plainText}/>
 			</div>
 		</div>
 	)

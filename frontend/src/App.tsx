@@ -18,7 +18,7 @@ function App() {
 				<div className={sidebarText} >Taipo</div>
 			</div>
 			<div className={contentWrapper}>
-				<CheckingStateCompnent state={state} totalErrors={result?.totalErrors ?? 0} />
+				<CheckingStateCompnent plainText={plainText} state={state} totalErrors={result?.totalErrors ?? 0} />
 				<TextEditor setPlainText={setPlainText} result={result} />
 			</div>
 		</div>
