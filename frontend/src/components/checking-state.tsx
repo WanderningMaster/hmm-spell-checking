@@ -5,38 +5,40 @@ import CheckYellowIcon from '../assets/check-yellow.svg?react'
 import CheckBlueIcon from '../assets/check-blue.svg?react'
 import { CheckState } from "../hooks/use-spell-check"
 import { ClipboardBtn } from "./clipboard-btn"
+import { TextType } from "../common/text"
+import { useLocalization } from "../providers/localization.provider"
 
 type Content = {
 	title: string;
 	subtitle?: string;
 }
-function matchText(state: CheckState, totalErrors: number, error: string | null): Content {
+function matchText(state: CheckState, totalErrors: number, error: string | null, text: TextType): Content {
 	switch(state) {
 	case CheckState.IDLE:
 		return {
-			title: "Type or paste your text to check it"
+			title: text.checkingStateIdle
 		}
 	case CheckState.LOADING:
 		return {
-			title: "Checking Text..."
+			title: text.checkingStateLoading
 		}
 	case CheckState.CHECKING_ERROR:
 		return {
-			title: "Error while checking text.",
+			title: text.checkingStateError,
 			subtitle: error ?? ''
 		}
 	case CheckState.ERRORS_FOUND:
 		return {
-			title: `${totalErrors} writing error${totalErrors > 1 ? 's' :''} found`, 
-			subtitle: 'Click on the highlighted words to correct them.'
+			title: text.checkingStateErrorsFound(totalErrors), 
+			subtitle: text.checkingStateErrorsFoundSubtitle
 		}
 	case CheckState.ERRORS_NOT_FOUND:
 		return {
-			title: `Errors not found!`, 
+			title: text.checkingStateErrorsNotFound,
 		}
 	default:
 		return {
-			title: "Type or paste your text to check it"
+			title: text.checkingStateIdle
 		}
 	}
 }
@@ -64,7 +66,8 @@ export const CheckingStateCompnent = ({state, totalErrors, plainText, error}: {
 	totalErrors: number
 	plainText: string
 }) => {
-	const content = matchText(state, totalErrors, error)
+	const {text} = useLocalization()
+	const content = matchText(state, totalErrors, error, text)
 	const icon = matchIcon(state)	
 	return (
 		<div className={checkingState}>

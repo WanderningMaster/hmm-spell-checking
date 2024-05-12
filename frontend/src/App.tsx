@@ -6,9 +6,10 @@ import { TextEditor } from './components/slate'
 import { useDebounce } from './hooks/use-debounce'
 import { useSpellCheck } from './hooks/use-spell-check'
 import React from 'react'
+import { useStorage } from './hooks/use-storage'
 
 function App() {
-	import.meta.env.MODE
+	const {getItem, setItem} = useStorage()
 	const [plainText, setPlainText] = React.useState("")
 	const [initial, setInitial] = React.useState<string | null>(null)
 
@@ -17,29 +18,13 @@ function App() {
 
 	const setText = (value: string) => {
 		setPlainText(value)
-		if(import.meta.env.MODE === "development") {
-			localStorage.setItem("text", value)
-		} else {
-			chrome.storage.local.set({text: value})
-		}
+		setItem("text", value)
 	}
 
-	function restoreSessionProd() {
-		chrome.storage.local.get()
-			.then((x: any) => {
-				if(!x.text) {
-					chrome.storage.local.set({text: ""})
-					setInitial("")	
-				}
-				else {
-					setInitial(x.text)	
-				}
-			})
-	}
-	function restoreSession() {
-		const text = localStorage.getItem("text")
+	async function restoreSession() {
+		const text = await getItem("text")
 		if(!text) {
-			localStorage.setItem("text", "")
+			setItem("text", "")
 			setInitial("")
 		} else {
 			setInitial(text)
@@ -47,11 +32,7 @@ function App() {
 	}
 
 	React.useEffect(() => {
-		if(import.meta.env.MODE === "development") {
-			restoreSession()
-		} else {
-			restoreSessionProd()
-		}
+		restoreSession()
 	}, [])
 
 	if(initial === null) {

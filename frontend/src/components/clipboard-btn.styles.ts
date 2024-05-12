@@ -2,7 +2,6 @@ import { css } from "@emotion/css";
 
 export const btn = css`
 	background: white !important;
-	border: 1px solid black;
 	border-radius: 10px !important;
 	outline: none !important;
 

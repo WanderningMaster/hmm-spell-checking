@@ -2,15 +2,17 @@ import React from "react";
 import { Button } from "@blueprintjs/core";
 import Clipboard from "../assets/clipboard.svg?react"
 import { btn } from "./clipboard-btn.styles";
+import { useLocalization } from "../providers/localization.provider";
 
 type ClipboardBtnProps = {
 	text: string;
 	disabled?: boolean
 }
-export const ClipboardBtn: React.FC<ClipboardBtnProps> = ({text, disabled}) => {
+export const ClipboardBtn: React.FC<ClipboardBtnProps> = ({text: textToCopy, disabled}) => {
+	const {text} = useLocalization()
 	const [clicked, setClicked] = React.useState(false)
 	const handleClick = () => {
-		navigator.clipboard.writeText(text)
+		navigator.clipboard.writeText(textToCopy)
 		setClicked(true)
 		const timer = setTimeout(() => {
 			setClicked(false)
@@ -20,7 +22,7 @@ export const ClipboardBtn: React.FC<ClipboardBtnProps> = ({text, disabled}) => {
 
 	const BtnContent = React.useMemo(() => {
 		if(clicked) {
-			return <p>Copied!</p>
+			return <p>{text.copied}</p>
 		}
 		return <Clipboard/>
 	}, [clicked])

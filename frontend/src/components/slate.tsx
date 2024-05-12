@@ -8,6 +8,7 @@ import { higlightedLeaf, slateStyles } from './slate.styles'
 import { Correction, SpellCheckResult } from '../hooks/use-spell-check'
 import { Popover } from '@blueprintjs/core'
 import { VariationsPopover } from './variations-popover'
+import { useLocalization } from '../providers/localization.provider'
 
 
 const Leaf: React.FC<{attributes: any, children: any, leaf: any}> = ({ attributes, children, leaf }) => {
@@ -59,6 +60,7 @@ type TextEditorProps = {
 	result: SpellCheckResult | null
 }
 export const TextEditor: React.FC<TextEditorProps> = ({initialText, setPlainText, result}) => {
+	const {text} = useLocalization()
 	const initialValue: Descendant[] = [
 		{
 			children: [{ text: initialText },],
@@ -100,8 +102,8 @@ export const TextEditor: React.FC<TextEditorProps> = ({initialText, setPlainText
 				try {
 					regex = new RegExp(word, 'ig');
 				}
-				catch {
-					console.log("caught an error")
+				catch(err) {
+					console.log("caught an error", err)
 					return []
 				}
 				while((match = regex.exec(text)) !== null) {
@@ -132,7 +134,7 @@ export const TextEditor: React.FC<TextEditorProps> = ({initialText, setPlainText
 				spellCheck={false}
 				decorate={decorate}
 				className={slateStyles}
-				placeholder="Type here..."
+				placeholder={text.placeholder}
 				renderLeaf={props => <Leaf {...props} />}
 			/>
 		</Slate>

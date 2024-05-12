@@ -2,9 +2,27 @@
 <html>
 <head>
   <title>Open HTML</title>
+  <link href="/popup.css" rel="stylesheet" />
+  <meta charset="UTF-8" />
 </head>
 <body>
-  <button id="openTab">Open HTML in New Tab</button>
+	<header>
+		<img src="/icon-without-bg.png" alt="">	
+		<div>Taipo</div>
+	</header>
+	<div id="content">
+		<button id="openTab"></button>
+		<div id="langSwitchWrapper">
+			<div id="title">
+			</div>
+			<div id="btnWrapper">
+				<button id="ua" class="lang"></button>
+				<button id="en" class="lang"></button>
+			</div>
+		</div>
+	</div>
+  <!-- <button id="openTab">Open Editor</button> -->
+  <!-- <button id="switchLang">Switch language</button> -->
   <script src="popup.js"></script>
 </body>
 </html>
