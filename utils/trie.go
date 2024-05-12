@@ -1,7 +1,9 @@
 package utils
 
+import "fmt"
+
 // size of bytes to cover english alphabet
-const MAX_CHILDREN = 26
+const MAX_CHILDREN = 199
 
 type node struct {
 	children [MAX_CHILDREN]*node
@@ -32,18 +34,21 @@ func (t *Trie) Insert(w string) {
 	curr.terminal = true
 }
 
-func (t *Trie) Search(w string) bool {
+func (t *Trie) Search(w string) (bool, error) {
 	curr := t.root
 	for idx := range w {
 		chIdx := w[idx] - 'a'
+		if chIdx >= MAX_CHILDREN {
+			return false, fmt.Errorf("unknown character")
+		}
 		if curr.children[chIdx] == nil {
-			return false
+			return false, nil
 		}
 		curr = curr.children[chIdx]
 	}
 	if curr.terminal {
-		return true
+		return true, nil
 	}
 
-	return false
+	return false, nil
 }

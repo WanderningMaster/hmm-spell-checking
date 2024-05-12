@@ -1,5 +1,4 @@
 import { css } from "@emotion/css";
-import pattern from './assets/pattern.png'
 
 export const rootWrapper = css`
 	display: flex;
@@ -23,25 +22,6 @@ export const sidebarText = css`
 	font-size: 30px;
 	font-weight: bolder;
 	color: rgb(8 47 73);
-`
-export const checkingState = css`
-	display: flex;
-	column-gap: 5px;
-
-	padding: 15px;
-	align-items: center;
-	border: 1px solid rgb(226 232 240);
-	border-radius: 8px;
-
-	font-size: 12px;
-
-	svg {
-		width: 30px;
-		height: auto;
-	}
-	p {
-		margin: 0;
-	}
 `
 
 export const sidebar = css`

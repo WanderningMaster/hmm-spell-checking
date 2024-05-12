@@ -13,12 +13,17 @@ export interface Correction {
 }
 
 async function fetchSpellCheckResult(text: string, signal: AbortSignal): Promise<SpellCheckResult> {
-	const query = new URLSearchParams({
-		text
+	const response = await fetch(`http://localhost:8080/api/spell-check?`, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify({text}),
+		signal
 	})
-	const response = await fetch(`http://localhost:8080/api/spell-check?${query}`, {signal})
 	if(!response.ok) {
-		throw new Error(response.statusText)
+		const res = await response.json()
+		throw new Error(res.message)
 	}
 	const result: SpellCheckResult = await response.json()
 
@@ -35,14 +40,17 @@ export const enum CheckState {
 export const useSpellCheck = (text: string): {
 	result: SpellCheckResult | null,
 	state: CheckState,
+	error: string | null
 } => {
 	const [result, setResult] = React.useState<SpellCheckResult | null>(null)
+	const [error, setError] = React.useState<string | null>(null)
 	const [state, setState] = React.useState<CheckState>(CheckState.IDLE)
 	
 	React.useEffect(() => {
 		const abortController = new AbortController()
 		const signal = abortController.signal
 		if(text.length) {
+			setError(null)
 			setState(CheckState.LOADING)
 			fetchSpellCheckResult(text, signal)
 				.then((res) => {
@@ -54,7 +62,7 @@ export const useSpellCheck = (text: string): {
 					}
 				})
 				.catch((err) => {
-					console.error(err)
+					setError(err.message)
 					setState(CheckState.CHECKING_ERROR)
 				})
 		}
@@ -68,5 +76,6 @@ export const useSpellCheck = (text: string): {
 	return {
 		result,
 		state,
+		error,
 	}
 }

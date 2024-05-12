@@ -1,7 +1,9 @@
 package cmd
 
 import (
+	"encoding/json"
 	"net/http"
+	"strings"
 
 	"github.com/WanderningMaster/hmm-spell-checking/services"
 	"github.com/WanderningMaster/hmm-spell-checking/utils"
@@ -13,6 +15,9 @@ type SpellCheckResponse struct {
 	Corrections []services.Candidate `json:"corrections"`
 	TotalErrors int                  `json:"totalErrors"`
 }
+type SpellCheckRequest struct {
+	Text string `json:"text"`
+}
 
 func StartServer() {
 	e := echo.New()
@@ -22,9 +27,14 @@ func StartServer() {
 	}))
 	spellChecker := services.NewSpellChecker(10)
 
-	e.GET("api/spell-check", func(c echo.Context) error {
-		input := c.QueryParam("text")
-		candidates, totalErrors, err := spellChecker.CorrectText(input)
+	e.POST("api/spell-check", func(c echo.Context) error {
+		req := SpellCheckRequest{}
+		err := json.NewDecoder(c.Request().Body).Decode(&req)
+		if err != nil {
+			return echo.NewHTTPError(http.StatusBadRequest, "invalid request body")
+		}
+
+		candidates, totalErrors, err := spellChecker.CorrectText(strings.ToLower(req.Text))
 		if err != nil {
 			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 		}

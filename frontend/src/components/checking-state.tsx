@@ -1,6 +1,7 @@
 import { checkingState, contentWrapper, section, subtitle } from "./checking-state.styles"
 import ErrorIcon from '../assets/error.svg?react'
 import CheckIcon from '../assets/check.svg?react'
+import CheckYellowIcon from '../assets/check-yellow.svg?react'
 import CheckBlueIcon from '../assets/check-blue.svg?react'
 import { CheckState } from "../hooks/use-spell-check"
 import { ClipboardBtn } from "./clipboard-btn"
@@ -9,7 +10,7 @@ type Content = {
 	title: string;
 	subtitle?: string;
 }
-function matchText(state: CheckState, totalErrors: number): Content {
+function matchText(state: CheckState, totalErrors: number, error: string | null): Content {
 	switch(state) {
 	case CheckState.IDLE:
 		return {
@@ -18,6 +19,11 @@ function matchText(state: CheckState, totalErrors: number): Content {
 	case CheckState.LOADING:
 		return {
 			title: "Checking Text..."
+		}
+	case CheckState.CHECKING_ERROR:
+		return {
+			title: "Error while checking text.",
+			subtitle: error ?? ''
 		}
 	case CheckState.ERRORS_FOUND:
 		return {
@@ -40,7 +46,9 @@ function matchIcon(state: CheckState) {
 	case CheckState.IDLE:
 		return <CheckBlueIcon/>
 	case CheckState.LOADING:
-		return <CheckIcon/>
+		return <CheckYellowIcon/>
+	case CheckState.CHECKING_ERROR:
+		return <ErrorIcon/>
 	case CheckState.ERRORS_FOUND:
 		return <ErrorIcon/>
 	case CheckState.ERRORS_NOT_FOUND:
@@ -50,12 +58,13 @@ function matchIcon(state: CheckState) {
 	}
 }
 
-export const CheckingStateCompnent = ({state, totalErrors, plainText}: {
+export const CheckingStateCompnent = ({state, totalErrors, plainText, error}: {
 	state: CheckState,
+	error: string | null,
 	totalErrors: number
 	plainText: string
 }) => {
-	const content = matchText(state, totalErrors)
+	const content = matchText(state, totalErrors, error)
 	const icon = matchIcon(state)	
 	return (
 		<div className={checkingState}>

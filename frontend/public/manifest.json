@@ -7,7 +7,16 @@
 	  "64": "icon.png"
   },
   "permissions": [
-	  "tabs"
+	  "tabs",
+	  "storage",
+	  "contextMenus"
+  ],
+  "background": { 
+	  "service_worker": "background.js",
+	  "type": "module"
+  },
+  "host_permissions": [
+    "http://*/"
   ],
   "action": {
 	  "default_popup": "popup.html"

@@ -9,13 +9,6 @@ import { Correction, SpellCheckResult } from '../hooks/use-spell-check'
 import { Popover } from '@blueprintjs/core'
 import { VariationsPopover } from './variations-popover'
 
-const initialValue: Descendant[] = [
-  {
-    children: [
-      { text: '' },
-    ],
-  },
-]
 
 const Leaf: React.FC<{attributes: any, children: any, leaf: any}> = ({ attributes, children, leaf }) => {
 	const [open, setOpen] = React.useState(false)
@@ -61,10 +54,16 @@ const Leaf: React.FC<{attributes: any, children: any, leaf: any}> = ({ attribute
 }
 
 type TextEditorProps = {
+	initialText: string;
 	setPlainText: (state: string) => void;
 	result: SpellCheckResult | null
 }
-export const TextEditor: React.FC<TextEditorProps> = ({setPlainText, result}) => {
+export const TextEditor: React.FC<TextEditorProps> = ({initialText, setPlainText, result}) => {
+	const initialValue: Descendant[] = [
+		{
+			children: [{ text: initialText },],
+		},
+	]
 	const editor = useMemo(() => withHistory(withReact(createEditor())), [])
 
 	const replace = (path: Path, start: number, end: number) => (variant: string) => {
@@ -99,9 +98,10 @@ export const TextEditor: React.FC<TextEditorProps> = ({setPlainText, result}) =>
 
 				let regex: RegExp;
 				try {
-					regex = new RegExp(`\\b${word}\\b`, 'g');
+					regex = new RegExp(word, 'ig');
 				}
 				catch {
+					console.log("caught an error")
 					return []
 				}
 				while((match = regex.exec(text)) !== null) {

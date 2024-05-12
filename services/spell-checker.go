@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"regexp"
 	"strings"
 	"time"
 
@@ -45,7 +46,7 @@ func getPairs() []string {
 }
 
 func getRawVocabulary() []string {
-	rHandle, err := os.Open("data/words_alpha.txt")
+	rHandle, err := os.Open("data/words_clean.txt")
 	defer rHandle.Close()
 
 	utils.Require(err)
@@ -172,12 +173,37 @@ func (s *SpellChecker) Correct(word string) (Candidate, error) {
 	return res, nil
 }
 
+func sanitizeInput(text string) string {
+	text = strings.ToLower(text)
+	text = strings.ReplaceAll(text, ",", "")
+	text = strings.ReplaceAll(text, ".", "")
+	text = strings.ReplaceAll(text, ";", "")
+	text = strings.ReplaceAll(text, "!", "")
+	text = strings.ReplaceAll(text, "?", "")
+
+	return text
+}
+
+func tokenize(text string) []string {
+	wordRegex := regexp.MustCompile(`\b\w+('\w+)?\b`)
+	matches := wordRegex.FindAllString(text, -1)
+	return matches
+}
+
 func (s *SpellChecker) CorrectText(text string) ([]Candidate, int, error) {
-	words := strings.Split(text, " ")
+	text = sanitizeInput(text)
+	words := tokenize(text)
+
 	candidates := []Candidate{}
 	totalErrors := 0
 	for _, word := range words {
-		exists, _ := s.voc.WordExists(word)
+		if word == " " || word == "" {
+			continue
+		}
+		exists, err := s.voc.WordExists(word)
+		if err != nil {
+			return nil, 0, err
+		}
 		if exists {
 			candidate := Candidate{
 				Valid: true,

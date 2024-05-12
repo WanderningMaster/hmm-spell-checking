@@ -1,3 +1,5 @@
+''ll	i'll
+''rved	served
 a	f
 a	i
 a	i
@@ -44,6 +46,8 @@ a	s
 a	s
 a	s
 a	s
+a'	i'
+a'm	i'm
 aa	a
 aa	a
 aa	a
@@ -555,6 +559,7 @@ ahave	have
 ahave	have
 ahave	have
 ahave	have
+ahaven'	haven'
 ahaving	having
 ahe	she
 ahe	she
@@ -654,6 +659,7 @@ ahere	there
 ahere	there
 ahere	where
 ahere	where
+ahere's	there's
 aherhead	overhead
 aherries	cherries
 ahether	whether
@@ -694,6 +700,7 @@ ai	a
 ai	a
 ai	i
 ai	i
+aib'	ain'
 aicture	picture
 aicycles	bicycles
 aid	did
@@ -723,6 +730,7 @@ aingers	singers
 aink	pink
 aint	ant
 air	and
+air'	air
 airba	air
 aircrafy	aircraft
 aircragt	aircraft
@@ -1092,6 +1100,7 @@ amy	am
 amy	any
 amy	any
 amy	my
+an	'n
 an	a
 an	a
 an	a
@@ -1353,6 +1362,7 @@ animaks	animals
 animala	animal
 animall	animal
 animans	animals
+anin'	ain'
 anione	anyone
 anis	an
 anjoy	enjoy
@@ -1366,6 +1376,7 @@ anm	and
 anm	and
 anm	and
 anm	and
+anm	i'm
 anmerican	american
 ann	and
 ann	and
@@ -1439,6 +1450,7 @@ ant	any
 ant	any
 ant	at
 ante	ant
+antera's	antena's
 anteresting	interesting
 anth	any
 anth	with
@@ -1534,6 +1546,7 @@ aompletely	completely
 aon	on
 aon	on
 aon	won
+aon't	don't
 aonely	lonely
 aonely	lonely
 aoney	money
@@ -1690,6 +1703,7 @@ are	and
 are	aof
 are	art
 are	art
+are't't	are'n't
 areae	area
 arear	near
 areat	great
@@ -1703,6 +1717,7 @@ arein	are
 arekk	are
 arems	arms
 aremy	are
+aren'u	aren't
 areo	also
 areo	also
 areoplane	aeroplane
@@ -1738,6 +1753,7 @@ arivingsh	ariving
 armchsir	armchair
 arme	arms
 armi	army
+arms	arm'
 armsa	arms
 arnimental	ornimental
 arnjucted	conjucted
@@ -1888,6 +1904,7 @@ asm	a
 asm	a
 asm	a
 asmall	small
+asn'	isn'
 asnd	and
 asnd	and
 asnd	and
@@ -1935,6 +1952,7 @@ at	on
 at	on
 at	on
 at	st
+at'	it'
 ataircase	staircase
 atairs	stairs
 atand	stand
@@ -2172,7 +2190,9 @@ ba	a
 baalerina	ballerina
 baba	baby
 baba	baby
+baba's	baby's
 babay	baby
+babbanna's	bannanna's
 babby	baby
 babe	baby
 babel	label
@@ -2848,6 +2868,7 @@ berfectly	perfectly
 berk	park
 berore	before
 berore	before
+berrie	berry'
 berried	berries
 berrier	berries
 bertainly	certainly
@@ -2960,6 +2981,7 @@ bib	big
 bibble	bubble
 bibbles	bubbles
 bibrant	vibrant
+bibrary's	library's
 biby	baby
 bibyucle	bicyucle
 bice	bike
@@ -3511,6 +3533,7 @@ botthe	bottle
 bottile	bottle
 bottim	bottom
 botting	getting
+bottles	bottle'
 bottoe	bottle
 boty	body
 boue	blue
@@ -3722,6 +3745,8 @@ bseason	season
 bsirds	birds
 bsunset	sunset
 bt	it
+bt's	it's
+bt's	it's
 btanch	branch
 btanch	branch
 btanch	branch
@@ -3837,6 +3862,7 @@ build	built
 buildeng	building
 buildihng	building
 buildind	building
+building'd	building's
 buildingd	buildings
 buildingd	buildings
 buildingd	buildings
@@ -4077,6 +4103,8 @@ c	b
 c	i
 c	i
 c	m
+c'	i'
+c'm	i'm
 ca	a
 ca	a
 ca	a
@@ -4121,6 +4149,7 @@ cal	can
 cal	cat
 cala	cola
 calarinet	clarinet
+calentine'	valentine'
 calking	walking
 calking	walking
 calking	walking
@@ -4141,6 +4170,7 @@ came	come
 came	same
 cameara	camera
 camel	canel
+camel'	camels
 cameles	camels
 camer	came
 camer	camel
@@ -4160,6 +4190,7 @@ camers	camera
 camers	camera
 camers	camera
 camers	camera
+camers's	camera's
 cameta	camera
 camlels	camels
 camml	camel
@@ -4179,6 +4210,13 @@ can	man
 can	tin
 can	van
 can	van
+can't	don't
+can't	don't
+can't	won't
+can't't	can'n't
+can'y	can't
+can'y	can't
+can'y	can't
 canb	can
 canbdle	candle
 cancdian	canadian
@@ -4188,6 +4226,7 @@ canci	can
 cancle	candle
 cancy	fancy
 cand	can
+cand't	can''t
 candadian	canadian
 candie	candle
 candkes	candles
@@ -4205,24 +4244,38 @@ cann	can
 cannal	canal
 cannal	canal
 cannl	canal
+cannot	cann't
 canoes	canoe
 canoos	canoes
 canorful	colorful
+canpt	can't
+canrt	can't
 cansle	candle
 cansy	candy
 cant	can
 cant	can
+cant	can'
+cant	can'
+cant	can'
+cant	can'
+cant	can'
+cant	can'
+cant	can'
 cant	want
 cant	want
 canu	can
 canves	canvas
 cany	can
 canyou	cany
+canyt	can't
+cao'	can'
 caoat	coat
 caod	food
 caolm	calm
 caom	calm
 caome	come
+caon'	can'
+caon'	can'
 caoormats	floormats
 caotures	captures
 caought	caught
@@ -4362,6 +4415,7 @@ cbutterfly	butterfly
 ccan	can
 ccatch	catch
 cceck	check
+ccn't	can't
 ccose	close
 ccroos	cross
 ccrossing	crossing
@@ -4434,6 +4488,7 @@ certioin	certiain
 cervertible	convertible
 cery	very
 cery	very
+cesigner's	designer's
 cete	cute
 ceychain	keychain
 cfair	chair
@@ -4555,6 +4610,7 @@ childree	children
 childrem	children
 childrens	children
 childrens	children
+childrens	children'
 childron	children
 childs	child
 chileren	children
@@ -4911,6 +4967,12 @@ cnan	can
 cnan	can
 cnan	can
 cnan	can
+cnan't	can't
+cnan't	can't
+cnan't	can't
+cnan't	can't
+cnan't	can't
+cnan't	can't
 cnandle	candle
 cnant	cant
 cnbin	cabin
@@ -4964,6 +5026,7 @@ coea	tea
 coeboy	cowboy
 coeen	green
 coeling	feeling
+coen'	aren'
 coere	where
 coes	cows
 coes	cows
@@ -5093,6 +5156,7 @@ colurful	colorful
 colurs	colors
 com	can
 com	can
+com't	con't
 coman	woman
 comapany	company
 combatisn	combation
@@ -5183,6 +5247,11 @@ comw	come
 comw	come
 comw	come
 con	c
+con'	can'
+con'	can'
+con't	can't
+con't	don't
+con't	don't
 conatining	containing
 concentratiung	concentrating
 concert	concret
@@ -5335,6 +5404,7 @@ cought	caught
 cought	caught
 cought	caught
 couky	rocky
+couldn'y	couldn't
 couldy	cloudy
 coule	could
 coulf	could
@@ -5508,6 +5578,7 @@ croup	group
 croutching	crouching
 crouwd	crowd
 crow	crew
+crowd'sof	crowd's
 crowdis	crowd
 crowdo	crowd
 crowe	crowd
@@ -5529,6 +5600,7 @@ crreation	creation
 crting	trying
 cruing	trying
 cruiseships	cruiseship
+crumcle's	crumble's
 crunvh	crunch
 crwal	crawl
 crwawling	crawling
@@ -5651,6 +5723,7 @@ cwant	want
 cwings	swings
 cwo	two
 cwrtion	certion
+cxan't	can't
 cxanal	canal
 cxat	cat
 cxome	come
@@ -5700,12 +5773,14 @@ daady	daddy
 daady	daddy
 daark	dark
 dabcers	dancers
+dabcers's	dancers's
 dace	face
 dackdrop	backdrop
 dacncing	dancing
 dad	bad
 dad	did
 dad	sad
+daddies	daddy's
 daddu	dad
 dadher	father
 dadly	badly
@@ -5742,6 +5817,8 @@ damed	domed
 damn	darn
 damous	famous
 dan	man
+dan'	can'
+dan't	can't
 danage	damage
 danages	damages
 danceng	dancing
@@ -5799,6 +5876,8 @@ daya	days
 daydy	daddy
 daying	saying
 dayre	day
+days	day'
+days	day'
 daysy	daisy
 daytonn	dayton
 dayu	day
@@ -5807,6 +5886,7 @@ dca	d
 dcene	scene
 ddanosure	dianosure
 ddarte	duarte
+ddidn'	didn'
 ddires	drives
 ddived	drived
 ddrives	drives
@@ -5951,6 +6031,8 @@ dextination	destination
 deyu	heyu
 dfall	fall
 dfascinating	fascinating
+dfeel's	feel's
+dfn'	don'
 dfo	do
 dfor	for
 dforce	force
@@ -6001,6 +6083,7 @@ diding	riding
 didit	didnt
 didital	digital
 didn	did
+didnt	did'
 didturp	disturp
 dieam	dream
 dield	field
@@ -6036,12 +6119,17 @@ digns	signs
 diguital	digital
 dihsh	dish
 dii	do
+diidn'	didn'
 dilapitated	dilapidated
 din	did
 din	in
+din'	don'
+din'	don'
+din't	don't
 dinamits	dynamits
 dind	find
 dind	sand
+dindn't	didn't
 dine	done
 ding	ging
 ding	sing
@@ -6153,6 +6241,7 @@ dnangerous	dangerous
 dndicate	indicate
 dneed	need
 dnjoying	enjoying
+dnon't	don't
 dnow	snow
 dnto	into
 dnwn	down
@@ -6169,6 +6258,8 @@ do	so
 do	to
 do	to
 do	to
+do'n't	don't
+do'n't	don't
 doall	small
 doat	boat
 doat	coat
@@ -6181,9 +6272,11 @@ dod	dog
 dod	god
 doday	today
 dodr	dor
+dodsn'	doesn'
 dody	body
 dody	body
 doe	dot
+doeen'	doesn'
 doeked	docked
 doen	down
 doen	down
@@ -6196,6 +6289,7 @@ doen	down
 does	goes
 doesn	does
 doesn	down
+doesnt	doesn'
 doet	dont
 dof	dog
 dofferent	different
@@ -6204,6 +6298,7 @@ dofs	dogs
 dog	big
 dogs	dog
 dogwa	dog
+doiesn'	doesn'
 doilling	drilling
 doinf	doing
 doing	going
@@ -6219,6 +6314,7 @@ dolor	color
 dolored	colored
 dolphing	dolphins
 dolphon	dolphin
+dom'	don'
 dombnos	dominos
 dome	come
 dome	some
@@ -6238,19 +6334,51 @@ don	do
 don	do
 don	dog
 don	toy
+don'	can'
+don'	won'
+don's	don't
+don'tr	don't
+don'y	don't
+don'y	don't
+don'y	don't
+don'y	don't
 donbt	dont
+done	don'
+done	don'
 done	dont
 dones	bones
 donete	donate
 donfused	confused
 doni	dont
+donibo's	donino's
 doninoes	dominoes
+doninoes	donino's
 dono	dont
 donoy	donot
+donsn't	doesn't
 dont	do
 dont	do
 dont	do
 dont	do
+dont	don'
+dont	don'
+dont	don'
+dont	don'
+dont	don'
+dont	don'
+dont	don'
+dont	don'
+dont	don'
+dont	don'
+dont	don'
+dont	don'
+dont	don'
+dont	don'
+dont	don'
+dont't	don't
+dont't	don't
+dont't	don't
+dont't	don't
 dontl	dont
 donts	dont
 dood	food
@@ -6302,6 +6430,7 @@ dot	do
 dot	dog
 dot	got
 dot	pet
+dot't	don't
 dote	cute
 dotergent	detergent
 dou	do
@@ -6328,6 +6457,7 @@ dovered	covered
 dovk	dock
 dovk	dock
 dow	dog
+dow'	don'
 dowards	towards
 dowards	towards
 dowes	does
@@ -6346,6 +6476,7 @@ dows	does
 doy	fly
 dp	d
 dpad	ipad
+dpn'	don'
 dpnt	dont
 dpoungebob	spoungebob
 dr	is
@@ -6506,6 +6637,7 @@ dtreet	street
 dtrewn	strewn
 dtruck	struck
 dtudies	studies
+du's	it's
 duaping	leaping
 dubmbest	dumbest
 duccer	ducker
@@ -6525,6 +6657,7 @@ dully	fully
 dully	fully
 dully	fully
 dumbnst	dumbest
+dummer's	summer's
 dummi	dummy
 dun	dim
 duning	during
@@ -6554,6 +6687,7 @@ dyeaster	easter
 dysplayed	displayed
 dysplayed	displayed
 dysplayesd	displayed
+e	'
 e	a
 e	i
 eaagle	eagle
@@ -6609,6 +6743,7 @@ earing	eating
 earing	eating
 earing	eating
 earking	barking
+earle'	eagle'
 earliy	early
 earlt	early
 earmy	early
@@ -7199,6 +7334,7 @@ f	i
 f	i
 f	i
 f	m
+f'	i'
 faal	fall
 faavourite	favourite
 fac	fae
@@ -7308,6 +7444,7 @@ fater	water
 fater	water
 fathere	father
 faughter	daughter
+fauther'	father'
 fave	face
 fave	face
 fave	face
@@ -7557,6 +7694,7 @@ filds	field
 filed	field
 filed	field
 filed	field
+filed's	field's
 fileld	field
 fileled	filled
 fileled	filled
@@ -7689,6 +7827,7 @@ firtst	first
 fisch	fish
 fise	rise
 fisease	disease
+fishe's	fish's
 fisherman	fishermen
 fishes	dishes
 fishi	fishs
@@ -8042,6 +8181,9 @@ folowers	flowers
 folowing	flowing
 foming	coming
 fomous	famous
+fon'	don'
+fon'	don'
+fon't	don't
 fond	find
 fone	gone
 fong	ging
@@ -8228,7 +8370,9 @@ frainers	trainers
 frainst	against
 franceaca	francesca
 frand	grand
+frandenstein'	frankenstein'
 fransisco	francisco
+fransisco's	francisco's
 frar	far
 frar	far
 frass	grass
@@ -8262,6 +8406,7 @@ freen	green
 freen	green
 freen	green
 freen	green
+frees	free'
 frees	trees
 freeting	greeting
 freexze	freeze
@@ -8352,6 +8497,7 @@ frnends	friends
 fro	frm
 froclic	frolic
 froe	for
+froend's	friend's
 froends	friends
 froends	friends
 froh	frog
@@ -8451,6 +8597,7 @@ fs	as
 fs	is
 fsallen	fallen
 fstopped	stopped
+ft's	it's
 ftanding	standing
 fthe	the
 fthe	the
@@ -8842,6 +8989,7 @@ gilrl	girl
 gilrls	girls
 gim	him
 gimnastic	gymnastic
+gin'	won'
 gind	find
 gind	land
 ginger	finger
@@ -8999,6 +9147,7 @@ go	to
 goad	road
 goads	goats
 goailie	goalie
+goan'	goin'
 goasts	goats
 goat	coat
 goave	leave
@@ -9035,6 +9184,7 @@ gogng	going
 gogs	dogs
 gogs	dogs
 gohg	dohg
+goi't	don't
 goibg	going
 goibg	going
 goigng	going
@@ -9052,6 +9202,7 @@ goine	gone
 goinf	going
 goinfident	confident
 going	doing
+going	goin'
 goingto	going
 goingu	going
 goinh	going
@@ -9089,6 +9240,7 @@ gome	home
 gome	some
 goming	coming
 gomng	going
+gon't	don't
 gonadola	gondola
 gone	done
 gonea	gonna
@@ -9312,6 +9464,7 @@ gridge	bridge
 gridge	bridge
 gridge	bridge
 griend	friend
+griend's	friend's
 griends	friends
 grige	brige
 grils	girls
@@ -9479,6 +9632,8 @@ h	i
 h	i
 h	i
 h	i
+h'	i'
+h'm	i'm
 ha	a
 ha	he
 ha	in
@@ -9553,6 +9708,7 @@ haking	taking
 haking	waking
 hald	half
 hald	hold
+hald's	hold's
 halding	holding
 halding	holding
 halking	walking
@@ -9736,6 +9892,7 @@ haveng	having
 haveng	having
 havet	hate
 havethetpower	havethatpower
+havev'	haven'
 haviinga	havinga
 havin	have
 havinf	having
@@ -9763,6 +9920,7 @@ he	me
 he	oh
 he	on
 he	we
+he'ds	he's
 hea	he
 hea	hey
 hea	sea
@@ -9824,6 +9982,7 @@ hehind	behind
 hehind	behind
 hehind	behind
 hehind	behind
+heighbor's	neighbor's
 heiii	haiii
 heind	behnd
 heioght	height
@@ -9866,6 +10025,7 @@ helpcopter	helicopter
 helpl	help
 helpm	help
 helpme	help
+heman's	human's
 hemebody	somebody
 hemlo	hello
 hench	bench
@@ -9954,6 +10114,7 @@ hewre	here
 hext	next
 hey	hip
 hey	let
+heye's	here's
 heylo	hello
 heyo	hey
 heyone	anyone
@@ -10273,6 +10434,7 @@ homw	home
 homw	home
 homw	home
 hon	son
+hon't	don't
 honcert	concert
 honds	hands
 honeu	honey
@@ -10439,6 +10601,8 @@ ht	at
 ht	hy
 ht	it
 ht	it
+ht's	it's
+ht's	it's
 htanding	standing
 htat	that
 htay	stay
@@ -10606,6 +10770,19 @@ i	s
 i	t
 i	u
 i	u
+i'	if
+i''l	i'll
+i''l	i'll
+i'a	i'm
+i'am	i'm
+i'kl	i'll
+i'llt	i'll
+i'm	i
+i'm	i
+i'mso	i'm
+i's	i'm
+i's	i'm
+i'wl	i'll
 ia	a
 ia	a
 ia	do
@@ -10710,6 +10887,7 @@ iam	i
 iam	i
 iam	i
 iam	i
+iam	i'
 iama	iam
 iamy	my
 ian	can
@@ -10841,6 +11019,7 @@ ie	we
 ie	we
 ie	we
 ie	we
+ie's	he's
 iea	yea
 iead	head
 ieady	ready
@@ -10938,6 +11117,7 @@ ihank	thank
 ihat	that
 ihat	that
 ihat	what
+ihat's	that's
 ihatever	whatever
 ihating	chating
 ihe	she
@@ -11036,6 +11216,7 @@ ii	i
 ii	in
 ii	is
 ii	it
+ii's	it's
 iii	i
 iilang	islang
 iim	iam
@@ -11046,6 +11227,7 @@ ij	in
 ij	in
 ijto	into
 iju	i
+ik's	it's
 ikating	skating
 ikneels	kneels
 iknow	know
@@ -11098,10 +11280,12 @@ im	i
 im	i
 im	i
 im	i
+im	i'
 im	in
 im	in
 im	in
 im	in
+im'm	i'm
 imafe	image
 imaga	image
 imagnination	imagination
@@ -11616,6 +11800,8 @@ ion	on
 ion	on
 ion	on
 ion	on
+ion'	don'
+ion't	don't
 ione	one
 ione	one
 ionj	in
@@ -11655,6 +11841,8 @@ iou	you
 iou	you
 iou	you
 iou	you
+iou'	you'
+iou'd	you'd
 iould	could
 iould	would
 iountain	mountain
@@ -11678,12 +11866,15 @@ ipink	pink
 ipjone	iphone
 ippears	appears
 iquiet	quiet
+ir	i'
 ir	it
 ir	it
 ir	it
 ir	it
 ir	it
 ir	or
+ir's	it's
+ir's	it's
 ire	are
 ire	are
 ire	are
@@ -11697,6 +11888,8 @@ ire	are
 ire	are
 ire	are
 ire	are
+iren'	aren'
+iren't	aren't
 irin	iron
 irite	write
 irives	drives
@@ -11757,6 +11950,7 @@ is	on
 is	to
 is	to
 is	us
+is's	it's
 isa	is
 isaching	reaching
 isaring	wearing
@@ -11835,6 +12029,7 @@ issetting	issitting
 isst	is
 isst	is
 ist	sit
+ist't	isn't
 istanding	standing
 istanding	standing
 istands	stands
@@ -11888,6 +12083,11 @@ it	is
 it	is
 it	my
 it	up
+it'	it
+it'm	i'm
+it's	he's
+it's	its
+it'w	it's
 ita	it
 ita	it
 ita	its
@@ -11961,6 +12161,10 @@ its	it
 its	it
 its	it
 its	it
+its	it'
+its	it'
+its	it'
+its	it'
 itsc	its
 itse	the
 itselfs	itself
@@ -12285,6 +12489,7 @@ kfinf	kinf
 kfinf	kinf
 khings	things
 kickking	kicking
+kid's	kids
 kide	hide
 kidfs	kids
 kids	kid
@@ -12355,6 +12560,7 @@ kissung	kissing
 kit	cat
 kit	it
 kit	lot
+kit's	it's
 kittan	kitten
 kittin	kitten
 kjd	kid
@@ -12472,6 +12678,7 @@ ladu	lady
 laduy	lady
 ladyes	ladies
 ladyes	ladies
+ladys	lady'
 ladyu	lady
 lafge	large
 laft	left
@@ -12602,6 +12809,7 @@ lead	leaf
 lead	leaf
 lead	leaf
 lead	leaf
+lead'	leaf'
 leada	leads
 leadd	lead
 leades	leaves
@@ -12681,6 +12889,7 @@ lellow	yellow
 lelp	help
 lelp	help
 lelse	else
+lem's	let's
 leman	lemon
 lemses	lenses
 lence	lense
@@ -12706,10 +12915,12 @@ let	lit
 let	we
 let	we
 lete	lets
+lethey'	they'
 lets	let
 lets	let
 lets	let
 lets	let
+lets	let'
 lett	let
 letter	better
 lettermand	lettermans
@@ -12783,6 +12994,7 @@ lie	are
 lie	are
 lie	is
 lie	one
+lie's	lay's
 lieke	like
 lieke	like
 lieke	like
@@ -12796,6 +13008,7 @@ lifgt	light
 lift	left
 liftimng	lifting
 liftle	little
+lifw's	life's
 lig	lit
 lig	lit
 lig	lit
@@ -12926,6 +13139,7 @@ linvable	lovable
 liocked	locked
 lioe	life
 lioer	tiger
+liofe's	life's
 liok	look
 liok	look
 liok	look
@@ -12948,6 +13162,7 @@ lird	bird
 lirials	serials
 lirl	girl
 lirl	girl
+lirl'	girl'
 liry	very
 lis	is
 lis	is
@@ -13131,6 +13346,7 @@ lolorful	colorful
 lolour	colour
 lolour	colour
 lolour	colour
+lom	i'm
 loman	woman
 loman	woman
 lomdon	london
@@ -13174,6 +13390,7 @@ lontly	lonely
 lony	many
 loo	lot
 loo	on
+loo't	don't
 lood	look
 lood	look
 loods	looks
@@ -13251,6 +13468,7 @@ louch	touch
 lounch	lounge
 louncher	launcher
 lounged	lounges
+lour's	your's
 lourve	louvre
 lov	lot
 lovb	love
@@ -13368,6 +13586,7 @@ m	i
 m	i
 m	i
 m	i
+m've	i've
 ma	a
 ma	me
 ma	me
@@ -13477,6 +13696,7 @@ mameraman	cameraman
 mamerican	american
 mammm	mammy
 mammu	mammy
+mammy'	mummy'
 mamnaga	manage
 mamny	many
 mamny	many
@@ -13603,6 +13823,7 @@ mawish	jewish
 may	boy
 mayme	maybe
 mazazine	magazine
+mcdonalds	mcdonald'
 mcuh	much
 mcuh	much
 mcve	move
@@ -13645,6 +13866,7 @@ meautiful	beautiful
 meautiful	beautiful
 mebacing	menacing
 mecca	macca
+mecico's	mexico's
 mede	made
 medim	med
 mee	me
@@ -13687,6 +13909,7 @@ men	man
 men	me
 men	mea
 men	oen
+men's	man's
 mena	men
 menbers	members
 menes	males
@@ -13814,6 +14037,7 @@ min	man
 min	man
 minal	final
 minds	finds
+mine's	mine
 minersa	miners
 minf	mind
 minf	mind
@@ -13967,10 +14191,12 @@ mommy	mummy
 mommy	mummy
 mommy	mummy
 momrning	morning
+moms	mom'
 momsung	samsung
 momument	monument
 mon	mom
 mon	mom
+mon't	don't
 monacrch	monarch
 mondey	monkey
 mone	one
@@ -14349,6 +14575,7 @@ nad	and
 nad	and
 nad	and
 nad	and
+nadakali'	kadakali'
 nade	made
 nade	made
 nade	made
@@ -14364,6 +14591,7 @@ nall	ball
 nalloons	balloons
 nalloons	balloons
 nam	man
+nam's	man's
 namebo	name
 nametage	nametag
 namkin	napkin
@@ -14377,6 +14605,7 @@ nan	man
 nan	man
 nan	man
 nan	man
+nan's	man's
 nand	and
 nand	and
 nand	and
@@ -14445,6 +14674,7 @@ ncice	nice
 ncie	nice
 ncie	nice
 ncie	nice
+ndon't	don't
 ne	be
 ne	be
 ne	me
@@ -14630,6 +14860,8 @@ nicomfortable	comfortable
 niddle	middle
 nide	side
 nide	side
+nidn'	didn'
+nidn'	didn'
 nig	big
 nighg	night
 nighj	night
@@ -14746,6 +14978,7 @@ nome	some
 nomes	names
 non	now
 non	on
+non't	don't
 noney	honey
 nong	long
 nonody	nobody
@@ -14801,6 +15034,7 @@ nouth	mouth
 nove	move
 novodu	nobodu
 novody	nobody
+novody's	nobody's
 now	new
 now	no
 now	no
@@ -14919,6 +15153,7 @@ o	n
 o	t
 o	u
 o	u
+o'm	i'm
 oa	a
 oa	on
 oa	on
@@ -14957,6 +15192,7 @@ ob	on
 ob	on
 obasorbs	obsorbs
 oberbridge	overbridge
+obery's	obey's
 objest	object
 obkect	object
 obly	only
@@ -15033,6 +15269,7 @@ odf	of
 odfer	offer
 odld	old
 odld	old
+odon'	don'
 odown	down
 odver	over
 odwn	down
@@ -15535,6 +15772,7 @@ oneons	onions
 oner	over
 oner	over
 oner	over
+ones's	one's
 onether	another
 onf	off
 onf	on
@@ -16239,6 +16477,7 @@ peaple	people
 peaple	people
 peaple	people
 peaple	people
+peaple'	peaple
 peaples	peoples
 pear	peir
 pearched	perched
@@ -16423,6 +16662,7 @@ perple	people
 perple	people
 perple	people
 perple	people
+perple's	people's
 perplr	peoplr
 perrer	pepper
 perrhed	perched
@@ -16448,6 +16688,7 @@ persone	persons
 persong	persons
 personsar	persons
 persoon	person
+persopn's	person's
 persorm	perform
 persormance	performance
 persorms	performs
@@ -17470,9 +17711,11 @@ quite	cute
 quitely	quietly
 quitet	quiet
 quitet	quiet
+quneen'	queen'
 qwhy	why
 qwn	own
 qwn	own
+r	'
 r	a
 r	a
 r	a
@@ -18379,6 +18622,7 @@ san	can
 san	man
 san	sad
 san	sun
+san'	don'
 sanail	snail
 sancer	dancer
 sand	hand
@@ -18922,6 +19166,7 @@ she	the
 she	the
 she	the
 she	the
+she'lll	she'll
 shea	sea
 shea	sea
 shea	sea
@@ -19007,6 +19252,7 @@ shitid	shit
 shitis	shit
 shitrt	shiirt
 shiuld	should
+shiuldn't	shouldn't
 shjuld	should
 shllouht	sillouht
 shluld	should
@@ -19050,6 +19296,7 @@ shops	ships
 shopw	shope
 shoq	show
 shor	shot
+shore'	store'
 shorth	shorts
 shorts	shots
 shorw	shore
@@ -19060,15 +19307,18 @@ shote	shore
 shoting	showing
 shou	shot
 shou	show
+shoudldn'	shouldn'
 shought	thought
 shouid	should
 shouing	showing
 shoukld	should
 shoul	shall
 should	would
+should'nt	shouldn't
 shouldi	should
 shouldi	should
 shouldn	should
+shouldnt	shouldn'
 shoulds	should
 shouldsrs	shoulders
 shous	shoes
@@ -19360,6 +19610,8 @@ sishes	fishes
 sishing	fishing
 sisible	visible
 siskinghis	riskinghis
+sisn'	isn'
+sisn't	isn't
 sisolated	isolated
 sisplaye	displaye
 sisplaying	displaying
@@ -19547,6 +19799,7 @@ skite	skate
 sknow	snow
 sknow	sow
 skrple	purple
+skty's	city's
 sku	sky
 sku	sky
 sku	sky
@@ -19787,6 +20040,7 @@ sn	on
 sn	on
 sn	on
 sn	s
+sn's'	suns'
 sna	ina
 snab	snap
 snace	dnace
@@ -19871,6 +20125,7 @@ so	no
 so	s
 so	to
 so	to
+so's	do's
 soace	space
 soad	road
 soad	soap
@@ -19964,11 +20219,14 @@ soman	woman
 soman	woman
 soman	woman
 soman	woman
+soman's	woman's
 somart	smart
 somary	mary
 somd	some
 some	son
 somean	woman
+somebodfy's	somebody's
+somebodys	somebody'
 somebofy	somebody
 somebosy	somebody
 somedody	somebody
@@ -19982,6 +20240,7 @@ somel	some
 somenody	somebody
 someobody	somebody
 someonep	someone
+someones's	someone's
 someonet	someone
 someonet	someonei
 somep	some
@@ -20024,6 +20283,10 @@ son	do
 son	sun
 son	sun
 son	sun
+son'	don'
+son't	don't
+son't	don't
+son't	don't
 soncert	concert
 sonderful	wonderful
 sonderfull	wonderfull
@@ -20328,6 +20591,7 @@ ss	so
 ssailing	sailing
 ssarkling	sparkling
 ssde	side
+sse'	she'
 ssea	sea
 ssen	seen
 sserveral	sseveral
@@ -21075,6 +21339,8 @@ syock	stock
 syod	food
 sythod	method
 sytructure	structure
+syy's	say's
+t	'
 t	a
 t	a
 t	a
@@ -21163,6 +21429,10 @@ t	i
 t	r
 t	y
 t	y
+t'	i'
+t'm	i'm
+t'm	i'm
+t'm	i'm
 ta	a
 ta	a
 ta	a
@@ -21171,6 +21441,7 @@ ta	go
 ta	is
 ta	to
 ta	to
+taamato's	tamato's
 taar	yaar
 tabe	tape
 tabke	table
@@ -21283,6 +21554,7 @@ talks	walks
 talling	talking
 talloed	tatooed
 tam	him
+tamatoes	tamato's
 tan	can
 tan	can
 tan	man
@@ -21331,6 +21603,7 @@ tath	bath
 tathered	gathered
 tatking	taking
 tatking	taking
+tatmato's	tamato's
 tatton	batton
 taue	blue
 tave	give
@@ -21355,6 +21628,7 @@ tcross	across
 tcross	across
 td	t
 tdolls	dolls
+tdon't	idon't
 tdown	down
 te	a
 te	he
@@ -21363,6 +21637,7 @@ te	it
 te	me
 te	me
 te	pe
+te're	we're
 teacging	teaching
 teachp	teacup
 teachrer	teacher
@@ -21481,6 +21756,7 @@ tellow	yellow
 tellowy	yellowy
 telophone	telephone
 tely	only
+tem	i'm
 tem	tea
 temain	remain
 temble	temple
@@ -21709,15 +21985,18 @@ that	this
 that	this
 that	tht
 that	what
+that'ssp	that's
 thata	thats
 thata	thats
 thate	there
 thate	those
+thate'	there'
 thath	that
 thatkgod	thankgod
 thatks	thanks
 thatn	than
 thats	that
+thats	that'
 thatt	that
 thave	have
 thay	that
@@ -22895,6 +23174,12 @@ tomplete	complete
 tomplete	complete
 tomr	to
 ton	on
+ton'	don'
+ton'	don'
+ton't	don't
+ton't	don't
+ton't	don't
+ton't	don't
 tonderful	wonderful
 tondon	london
 tondue	tongue
@@ -23256,6 +23541,7 @@ tro	two
 tro	two
 tro	two
 troddn	troden
+trolleys's	trolley's
 trom	from
 trom	from
 trom	from
@@ -23486,6 +23772,7 @@ u	i
 u	i
 u	i
 u	i
+u'm	i'm
 ubnder	under
 uburger	burger
 uding	using
@@ -23811,10 +24098,13 @@ van	can
 van	can
 van	can
 van	can
+van'	can'
+van't	can't
 vandalised	vandalized
 vandalised	vandalized
 vandle	candle
 vandles	candles
+vann't	cann't
 vansdy	cansdy
 vant	cant
 vanvas	canvas
@@ -23957,6 +24247,7 @@ veverage	beverage
 vey	cry
 vgirl	girl
 vh	oh
+vhat'	what'
 vhe	the
 vhe	the
 vhis	this
@@ -24163,6 +24454,7 @@ w	i
 w	i
 w	i
 w	o
+w'm	i'm
 wa	a
 wa	a
 wa	he
@@ -24380,6 +24672,9 @@ wan	van
 wan	van
 wan	was
 wan	was
+wan'	won'
+wan'	won'
+wan't	don't
 wand	and
 wand	want
 wand	want
@@ -24561,6 +24856,7 @@ we	is
 we	it
 we	me
 we	se
+we'	we
 wea	sea
 wea	sea
 wea	sea
@@ -24599,6 +24895,7 @@ wearn	wears
 weas	has
 weast	east
 weat	wet
+weat'	what'
 weatch	watch
 weater	water
 weater	water
@@ -24687,6 +24984,8 @@ wer	we
 wer	we
 wer	we
 wer	we
+wer	we'
+wer	we'
 wer	wea
 wer	wet
 weraing	wearing
@@ -24694,11 +24993,13 @@ weraing	wearing
 werar	wear
 weraring	wearing
 weraring	wearing
+were	we'
 were	wore
 werer	were
 weres	wires
 werestlers	wrestlers
 werestling	wrestling
+werson's	person's
 werve	serve
 wery	very
 wery	very
@@ -24712,8 +25013,10 @@ wery	very
 wery	very
 wes	has
 weside	beside
+wesn'	wasn'
 wests	rests
 wet	set
+wet's	let's
 weter	water
 weth	with
 weth	with
@@ -24750,8 +25053,12 @@ wh	oh
 wh	oh
 wh	we
 wh	we
+wh'	we'
+wh'	we'
+wh'	we'
 wha	who
 wha	why
+wha't's	what's
 whaeat	wheat
 whaelbarrow	wheelbarrow
 whaere	where
@@ -24793,6 +25100,7 @@ whats	what
 whats	what
 whats	what
 whats	what
+whats	what'
 whaty	why
 whay	what
 whay	what
@@ -24821,6 +25129,8 @@ whe	the
 whe	why
 whe	why
 whe	why
+whe'	we'
+whe'e'd	where'd
 whearing	wearing
 whearing	wearing
 wheee	wheel
@@ -24834,9 +25144,11 @@ whell	wheel
 whell	wheel
 wheller	wheeler
 whene	where
+whens	who's
 wher	why
 where	were
 where	were
+where's	where
 wherea	where
 wherei	where
 wherei	where
@@ -24988,6 +25300,7 @@ wholesole	wholesome
 wholr	whole
 wholw	whole
 whope	whole
+whos	who'
 whose	those
 whosi	who
 whote	white
@@ -25020,6 +25333,7 @@ whry	very
 whst	just
 wht	oh
 wht	why
+wht'	let'
 whtat	what
 whtch	watch
 whterther	wheather
@@ -25089,6 +25403,7 @@ wides	rides
 widewalk	sidewalk
 widhes	wishes
 widndow	window
+widow'	widow
 wie	are
 wie	are
 wie	she
@@ -25501,6 +25816,7 @@ wodnder	wonder
 woe	are
 woe	bye
 woean	woman
+woean'	woman'
 woek	work
 woeking	working
 woeld	world
@@ -25512,8 +25828,10 @@ woerd	word
 woerls	worls
 woes	woe
 woessed	dressed
+woh's	who's
 wohder	wonder
 wohis	this
+woho's	who's
 woimand	womand
 woinder	wonder
 woindow	window
@@ -25545,8 +25863,10 @@ woman	women
 woman	women
 woman	women
 woman	women
+woman'	womans
 womani	woman
 womanis	woman
+womans	woman'
 womden	wooden
 womder	wonder
 womderful	wonderful
@@ -25555,6 +25875,7 @@ wome	come
 wome	some
 wome	some
 womean	woman
+womean's	woman's
 women	woman
 women	woman
 women	woman
@@ -25590,6 +25911,7 @@ womwn	woman
 womwn	women
 womwn	women
 won	win
+won't	don't
 wonan	woman
 wonan	woman
 wonan	woman
@@ -25633,6 +25955,7 @@ wonferful	wonderful
 wonferful	wonderful
 wongerful	wonderful
 wonrerful	wonderful
+wont	won'
 wontaining	containing
 wonter	wonder
 woo	wow
@@ -25779,6 +26102,7 @@ would	could
 would	world
 would	world
 would	world
+wouldnt	wouldn'
 woulf	would
 wouls	would
 woung	young
@@ -25839,6 +26163,7 @@ wr	is
 wr	we
 wr	we
 wr	we
+wr'	we'
 wrandwich	sandwich
 wravelling	travelling
 wre	are
@@ -25904,6 +26229,7 @@ wt	it
 wt	it
 wt	it
 wt	it
+wt'	it'
 wtanding	standing
 wtanding	standing
 wtarer	water
@@ -25986,6 +26312,7 @@ wwith	with
 wwlk	walk
 wwll	well
 wwman	woman
+wwman's	woman's
 wwtching	watching
 wwter	water
 wwter	water
@@ -26050,6 +26377,7 @@ yeallow	yellow
 yealow	yellow
 yealow	yellow
 yeange	orange
+year'	years
 yeash	yeah
 yeat	eat
 yeellow	yellow
@@ -26083,6 +26411,7 @@ yer	her
 yerars	years
 yere	here
 yery	very
+yes're	you're
 yesar	year
 yess	yes
 yest	yes
@@ -26120,6 +26449,7 @@ yhe	the
 yhe	the
 yhere	there
 yhese	these
+yhey'	they'
 yhid	yhis
 yhis	this
 yhis	this
@@ -26162,6 +26492,7 @@ yo	do
 yo	do
 yo	he
 yo	i
+yo	i'
 yo	no
 yo	t
 yo	to
@@ -26247,7 +26578,11 @@ your	our
 your	you
 your	you
 your	you
+your	you'
+your	you'
 your	youk
+your're	you're
+youre	you'
 yourg	young
 yourg	young
 yourge	your
@@ -26330,6 +26665,7 @@ yyung	young
 z	a
 zare	are
 zdbras	zebras
+zebra's	zebras
 zets	lets
 zhe	the
 zi	hi
