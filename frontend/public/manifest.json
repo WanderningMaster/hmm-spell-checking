@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "Taipo",
+  "version": "1.0.0",
+  "icons": {
+	  "32": "icon.png",
+	  "64": "icon.png"
+  },
+  "permissions": [
+	  "tabs",
+	  "storage",
+	  "contextMenus"
+  ],
+  "background": { 
+	  "service_worker": "background.js",
+	  "type": "module"
+  },
+  "host_permissions": [
+    "http://*/"
+  ],
+  "action": {
+	  "default_popup": "popup.html"
+  }
+}

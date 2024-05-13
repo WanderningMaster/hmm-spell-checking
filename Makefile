@@ -1,5 +1,5 @@
 dev:
-	@go run main.go
+	@air
 build:
 	@go build -o bin/main main.go
 run:

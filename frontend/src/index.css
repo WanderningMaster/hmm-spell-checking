@@ -1,0 +1,13 @@
+@import "normalize.css";
+@import "@blueprintjs/core/lib/css/blueprint.css";
+@import "@blueprintjs/icons/lib/css/blueprint-icons.css";
+
+@font-face {
+	font-family: 'Droid Sans Mono';
+	src: url('./assets/DroidSansMono.ttf');
+	font-display: swap;
+}
+
+body {
+  font-family: 'Droid Sans Mono';
+}

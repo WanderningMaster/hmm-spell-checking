@@ -43,5 +43,5 @@ func (v *Vocabulary) WordExists(word string) (bool, error) {
 		return false, VocabularyIsNotReadyYet
 	}
 
-	return v.trie.Search(word), nil
+	return v.trie.Search(word)
 }

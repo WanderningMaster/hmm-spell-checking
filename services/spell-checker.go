@@ -4,6 +4,8 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"regexp"
+	"strings"
 	"time"
 
 	"github.com/WanderningMaster/hmm-spell-checking/internal/hmm"
@@ -19,8 +21,10 @@ type SpellChecker struct {
 	voc         *vocabulary.Vocabulary
 }
 type Candidate struct {
-	Best     string
-	Variants []string
+	Valid    bool     `json:"valid"`
+	Best     string   `json:"best"`
+	Typo     string   `json:"typo"`
+	Variants []string `json:"variants"`
 }
 
 func getPairs() []string {
@@ -42,7 +46,7 @@ func getPairs() []string {
 }
 
 func getRawVocabulary() []string {
-	rHandle, err := os.Open("data/words_alpha.txt")
+	rHandle, err := os.Open("data/words_clean.txt")
 	defer rHandle.Close()
 
 	utils.Require(err)
@@ -150,6 +154,7 @@ func (s *SpellChecker) Correct(word string) (Candidate, error) {
 	)
 
 	var res Candidate
+	res.Typo = word
 	best := candidates[0]
 	exists, _ := s.voc.WordExists(string(best))
 	if exists {
@@ -166,4 +171,54 @@ func (s *SpellChecker) Correct(word string) (Candidate, error) {
 	}
 
 	return res, nil
+}
+
+func sanitizeInput(text string) string {
+	text = strings.ToLower(text)
+	text = strings.ReplaceAll(text, ",", "")
+	text = strings.ReplaceAll(text, ".", "")
+	text = strings.ReplaceAll(text, ";", "")
+	text = strings.ReplaceAll(text, "!", "")
+	text = strings.ReplaceAll(text, "?", "")
+
+	return text
+}
+
+func tokenize(text string) []string {
+	wordRegex := regexp.MustCompile(`\b\w+('\w+)?\b`)
+	matches := wordRegex.FindAllString(text, -1)
+	return matches
+}
+
+func (s *SpellChecker) CorrectText(text string) ([]Candidate, int, error) {
+	text = sanitizeInput(text)
+	words := tokenize(text)
+
+	candidates := []Candidate{}
+	totalErrors := 0
+	for _, word := range words {
+		if word == " " || word == "" {
+			continue
+		}
+		exists, err := s.voc.WordExists(word)
+		if err != nil {
+			return nil, 0, err
+		}
+		if exists {
+			candidate := Candidate{
+				Valid: true,
+				Best:  word,
+			}
+			candidates = append(candidates, candidate)
+			continue
+		}
+		candidate, err := s.Correct(word)
+		if err != nil {
+			return nil, 0, err
+		}
+		candidates = append(candidates, candidate)
+		totalErrors += 1
+	}
+
+	return candidates, totalErrors, nil
 }
