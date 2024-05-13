@@ -1,7 +1,7 @@
 import { css } from "@emotion/css";
 
 export const popover = css`
-	width: 350px;
+	width: 280px;
 	padding: 20px;
 `
 
