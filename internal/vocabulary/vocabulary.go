@@ -2,6 +2,8 @@ package vocabulary
 
 import (
 	"errors"
+	"strings"
+
 	"github.com/WanderningMaster/hmm-spell-checking/utils"
 )
 
@@ -41,6 +43,9 @@ func (v *Vocabulary) Load(data []string) {
 func (v *Vocabulary) WordExists(word string) (bool, error) {
 	if !v.ready {
 		return false, VocabularyIsNotReadyYet
+	}
+	if strings.Contains(word, "#") {
+		return true, nil
 	}
 
 	return v.trie.Search(word)

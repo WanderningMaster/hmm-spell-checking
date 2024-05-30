@@ -3,7 +3,6 @@ package cmd
 import (
 	"encoding/json"
 	"net/http"
-	"strings"
 
 	"github.com/WanderningMaster/hmm-spell-checking/services"
 	"github.com/WanderningMaster/hmm-spell-checking/utils"
@@ -25,7 +24,7 @@ func StartServer() {
 		AllowOrigins: []string{"http://localhost:5173"},
 		AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
 	}))
-	spellChecker := services.NewSpellChecker(10)
+	spellChecker := services.NewSpellChecker(30)
 
 	e.POST("api/spell-check", func(c echo.Context) error {
 		req := SpellCheckRequest{}
@@ -34,7 +33,7 @@ func StartServer() {
 			return echo.NewHTTPError(http.StatusBadRequest, "invalid request body")
 		}
 
-		candidates, totalErrors, err := spellChecker.CorrectText(strings.ToLower(req.Text))
+		candidates, totalErrors, err := spellChecker.CorrectText(req.Text)
 		if err != nil {
 			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 		}

@@ -20,6 +20,7 @@ type Coord struct {
 
 type HMM struct {
 	data            [][]utils.Tuple
+	insertionData   [][]utils.Tuple
 	ready           bool
 	TransitionProbs map[rune]map[rune]float64
 	EmissionProbs   map[rune]map[rune]float64
@@ -38,9 +39,11 @@ func New(withFuncs ...func(m *HMM) error) (*HMM, error) {
 	model := &HMM{
 		ready:           false,
 		data:            [][]utils.Tuple{},
+		insertionData:   [][]utils.Tuple{},
 		TransitionProbs: make(map[rune]map[rune]float64),
 		EmissionProbs:   make(map[rune]map[rune]float64),
 		InitProbs:       map[rune]float64{},
+		KeyboardLayout:  InitKeyboardLayout(),
 	}
 	for _, fn := range withFuncs {
 		err := fn(model)
@@ -74,19 +77,40 @@ func WithCache(m *HMM) error {
 	return nil
 }
 
-func CalculateDistance(a, b rune, layout map[rune]Coord) float64 {
-	if a == b {
-		return 0
+func (k *HMM) KeyDistance(a, b rune) float64 {
+	coordA, okA := k.KeyboardLayout[a]
+	coordB, okB := k.KeyboardLayout[b]
+	if !okA || !okB {
+		return math.Inf(1)
 	}
-	ax, ay := layout[a].X, layout[a].Y
-	bx, by := layout[b].X, layout[b].Y
-	return math.Sqrt(math.Pow(ax-bx, 2) + math.Pow(ay-by, 2))
+	return math.Sqrt(math.Pow(coordA.X-coordB.X, 2) + math.Pow(coordA.Y-coordB.Y, 2))
 }
 
-func (m *HMM) Load(data []string) {
+func InitKeyboardLayout() map[rune]Coord {
+	// Initialize the KeyboardLayout map
+	return map[rune]Coord{
+		// Top row
+		'q': {X: 0, Y: 1}, 'w': {X: 1, Y: 1}, 'e': {X: 2, Y: 1}, 'r': {X: 3, Y: 1}, 't': {X: 4, Y: 1},
+		'y': {X: 5, Y: 1}, 'u': {X: 6, Y: 1}, 'i': {X: 7, Y: 1}, 'o': {X: 8, Y: 1}, 'p': {X: 9, Y: 1},
+
+		// Home row
+		'a': {X: 0, Y: 2}, 's': {X: 1, Y: 2}, 'd': {X: 2, Y: 2}, 'f': {X: 3, Y: 2}, 'g': {X: 4, Y: 2},
+		'h': {X: 5, Y: 2}, 'j': {X: 6, Y: 2}, 'k': {X: 7, Y: 2}, 'l': {X: 8, Y: 2}, '\'': {X: 10, Y: 2},
+
+		// Bottom row
+		'z': {X: 0, Y: 3}, 'x': {X: 1, Y: 3}, 'c': {X: 2, Y: 3}, 'v': {X: 3, Y: 3}, 'b': {X: 4, Y: 3},
+		'n': {X: 5, Y: 3}, 'm': {X: 6, Y: 3},
+	}
+}
+
+func (m *HMM) Load(data []string, insertionData []string) {
 	for _, s := range data {
 		records, _ := utils.MapWordPair(s)
 		m.data = append(m.data, records)
+	}
+	for _, s := range insertionData {
+		records, _ := utils.MapWordPair(s)
+		m.insertionData = append(m.insertionData, records)
 	}
 
 	m.calcTransitionMatrix()
@@ -148,7 +172,7 @@ func (m *HMM) LogTransitionMatrix(outs *os.File) {
 
 func (m *HMM) LogEmissionMatrix(outs *os.File) {
 	io.WriteString(outs, "Emission probs:\n")
-	for fromState, toStates := range m.TransitionProbs {
+	for fromState, toStates := range m.EmissionProbs {
 		for toState, prob := range toStates {
 			io.WriteString(
 				outs,
@@ -170,6 +194,7 @@ func (m *HMM) LogInitializationMatrix(outs *os.File) {
 
 func (m *HMM) calcTransitionMatrix() {
 	transitionCounts := make(map[rune]map[rune]int)
+
 	for _, seq := range m.data {
 		for i := 0; i < len(seq)-1; i += 1 {
 			fromState := seq[i].State
@@ -195,31 +220,33 @@ func (m *HMM) calcTransitionMatrix() {
 
 		m.TransitionProbs[fromState] = make(map[rune]float64)
 		for toState, count := range toStates {
-			m.TransitionProbs[fromState][toState] = float64(count) / float64(totalTransitions)
+			m.TransitionProbs[fromState][toState] = (float64(count) / float64(totalTransitions))
 		}
 	}
 }
 
 func (m *HMM) calcEmissionMatrix() {
-	emissionCounts := make(map[rune]map[rune]int)
+	rawEmissionCounts := make(map[rune]map[rune]int)
 	for _, seq := range m.data {
 		for i := 0; i < len(seq); i += 1 {
 			observed := seq[i].Observed
 			state := seq[i].State
 
-			if _, ok := emissionCounts[state]; !ok {
-				emissionCounts[state] = make(map[rune]int)
+			if _, ok := rawEmissionCounts[state]; !ok {
+				rawEmissionCounts[state] = make(map[rune]int)
 			}
 
-			if _, ok := emissionCounts[state][observed]; !ok {
-				emissionCounts[state][observed] = 0
+			if _, ok := rawEmissionCounts[state][observed]; !ok {
+				rawEmissionCounts[state][observed] = 0
 			}
 
-			emissionCounts[state][observed] += 1
+			rawEmissionCounts[state][observed] += 1
 		}
 	}
 
-	for state, observations := range emissionCounts {
+	m.EmissionProbs = make(map[rune]map[rune]float64)
+	lambda := 0.035
+	for state, observations := range rawEmissionCounts {
 		totalObservations := 0
 		for _, count := range observations {
 			totalObservations += count
@@ -227,7 +254,13 @@ func (m *HMM) calcEmissionMatrix() {
 
 		m.EmissionProbs[state] = make(map[rune]float64)
 		for observed, count := range observations {
-			m.EmissionProbs[state][observed] = float64(count) / float64(totalObservations)
+			countProb := float64(count) / float64(totalObservations)
+
+			distance := m.KeyDistance(state, observed)
+			distanceProb := math.Exp(-lambda * distance)
+
+			m.EmissionProbs[state][observed] = countProb * distanceProb
+			// m.EmissionProbs[state][observed] = countProb
 		}
 	}
 }

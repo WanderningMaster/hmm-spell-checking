@@ -8,3 +8,5 @@ clean_data:
 	@go run ./data/clean.go
 test:
 	@go test -v ./... | grep -v "data" | grep -v "cmd"
+measure:
+	@go run ./measures

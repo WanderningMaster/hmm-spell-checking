@@ -2,8 +2,8 @@ package utils
 
 import "fmt"
 
-// size of bytes to cover english alphabet
-const MAX_CHILDREN = 199
+// size of bytes to cover english alphabet + extra '\” symbol (pos 27)
+const MAX_CHILDREN = 28
 
 type node struct {
 	children [MAX_CHILDREN]*node
@@ -24,7 +24,12 @@ func NewTrie() *Trie {
 func (t *Trie) Insert(w string) {
 	curr := t.root
 	for idx := range w {
-		chIdx := w[idx] - 'a'
+		var chIdx byte
+		if w[idx] == '\'' {
+			chIdx = 27
+		} else {
+			chIdx = w[idx] - 'a'
+		}
 		if curr.children[chIdx] == nil {
 			curr.children[chIdx] = &node{}
 		}
@@ -39,7 +44,11 @@ func (t *Trie) Search(w string) (bool, error) {
 	for idx := range w {
 		chIdx := w[idx] - 'a'
 		if chIdx >= MAX_CHILDREN {
-			return false, fmt.Errorf("unknown character")
+			if w[idx] == '\'' {
+				chIdx = 27
+			} else {
+				return false, fmt.Errorf("unknown character")
+			}
 		}
 		if curr.children[chIdx] == nil {
 			return false, nil

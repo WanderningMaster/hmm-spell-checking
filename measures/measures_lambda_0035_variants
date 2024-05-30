@@ -1,0 +1,39 @@
+MAX_VAIRANTS: 10
+Matched 269/732
+Accuracy: 36.749 %
+
+MAX_VAIRANTS: 20
+Matched 332/732
+Accuracy: 45.355 %
+
+MAX_VAIRANTS: 30
+Matched 366/732
+Accuracy: 50.000 %
+
+MAX_VAIRANTS: 40
+Matched 387/732
+Accuracy: 52.869 %
+
+MAX_VAIRANTS: 50
+Matched 405/732
+Accuracy: 55.328 %
+
+MAX_VAIRANTS: 60
+Matched 415/732
+Accuracy: 56.694 %
+
+MAX_VAIRANTS: 70
+Matched 423/732
+Accuracy: 57.787 %
+
+MAX_VAIRANTS: 80
+Matched 426/732
+Accuracy: 58.197 %
+
+MAX_VAIRANTS: 90
+Matched 429/732
+Accuracy: 58.607 %
+
+MAX_VAIRANTS: 100
+Matched 433/732
+Accuracy: 59.153 %

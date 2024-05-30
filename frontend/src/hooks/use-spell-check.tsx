@@ -1,4 +1,4 @@
-import React from "react"
+import React from "react";
 
 export interface SpellCheckResult {
 	corrections: Correction[];
@@ -42,6 +42,7 @@ export const useSpellCheck = (text: string): {
 	state: CheckState,
 	error: string | null
 } => {
+
 	const [result, setResult] = React.useState<SpellCheckResult | null>(null)
 	const [error, setError] = React.useState<string | null>(null)
 	const [state, setState] = React.useState<CheckState>(CheckState.IDLE)

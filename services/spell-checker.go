@@ -7,6 +7,7 @@ import (
 	"regexp"
 	"strings"
 	"time"
+	"unicode"
 
 	"github.com/WanderningMaster/hmm-spell-checking/internal/hmm"
 	"github.com/WanderningMaster/hmm-spell-checking/internal/logger"
@@ -27,11 +28,17 @@ type Candidate struct {
 	Variants []string `json:"variants"`
 }
 
-func getPairs() []string {
-	rHandle, err := os.Open("data/en_keystrokes_pairs_clean.txt")
-	defer rHandle.Close()
+func (s *SpellChecker) SetMaxVariants(val int) {
+	s.maxVariants = val
+}
 
+func getPairs() ([]string, []string) {
+	rHandle, err := os.Open("data/en_keystrokes_pairs_clean.txt")
 	utils.Require(err)
+	rInsertionsHandle, err := os.Open("data/insersition_prep.txt")
+	utils.Require(err)
+	defer rHandle.Close()
+	defer rInsertionsHandle.Close()
 
 	scanner := bufio.NewScanner(rHandle)
 	scanner.Split(bufio.ScanLines)
@@ -42,7 +49,16 @@ func getPairs() []string {
 		pairs = append(pairs, line)
 	}
 
-	return pairs
+	insertionPairs := []string{}
+	scanner = bufio.NewScanner(rInsertionsHandle)
+	scanner.Split(bufio.ScanLines)
+
+	for scanner.Scan() {
+		line := scanner.Text()
+		insertionPairs = append(insertionPairs, line)
+	}
+
+	return pairs, insertionPairs
 }
 
 func getRawVocabulary() []string {
@@ -66,14 +82,14 @@ func getRawVocabulary() []string {
 func loadModel(withLogs bool) *hmm.HMM {
 	logger := logger.GetLogger()
 
-	pairs := getPairs()
+	pairs, insertionPairs := getPairs()
 	start := time.Now()
 	model, err := hmm.New(hmm.WithCache)
 	if err != nil {
 		logger.Warn(fmt.Sprintf("Err: %v, skipping...", err))
 		model, _ = hmm.New()
 
-		model.Load(pairs)
+		model.Load(pairs, insertionPairs)
 	}
 	logger.Info(
 		fmt.Sprintf("Loaded model into memory in: %s", time.Since(start)),
@@ -147,7 +163,7 @@ func NewSpellChecker(maxVariant int) *SpellChecker {
 }
 
 func (s *SpellChecker) Correct(word string) (Candidate, error) {
-	candidates := viterbi.ViterbiNBest(
+	candidates := viterbi.ViterbiKBest(
 		[]rune(word),
 		s.hmm,
 		s.maxVariants,
@@ -174,7 +190,6 @@ func (s *SpellChecker) Correct(word string) (Candidate, error) {
 }
 
 func sanitizeInput(text string) string {
-	text = strings.ToLower(text)
 	text = strings.ReplaceAll(text, ",", "")
 	text = strings.ReplaceAll(text, ".", "")
 	text = strings.ReplaceAll(text, ";", "")
@@ -190,6 +205,32 @@ func tokenize(text string) []string {
 	return matches
 }
 
+func saveRegistr(word string) []bool {
+	r := []bool{}
+	for _, ch := range word {
+		if unicode.IsUpper(ch) {
+			r = append(r, true)
+		} else {
+			r = append(r, false)
+		}
+	}
+
+	return r
+}
+
+func applyRegistr(word string, r []bool) string {
+	w := []rune{}
+	for idx, ch := range word {
+		if r[idx] {
+			w = append(w, unicode.ToUpper(ch))
+		} else {
+			w = append(w, ch)
+		}
+	}
+
+	return string(w)
+}
+
 func (s *SpellChecker) CorrectText(text string) ([]Candidate, int, error) {
 	text = sanitizeInput(text)
 	words := tokenize(text)
@@ -200,6 +241,9 @@ func (s *SpellChecker) CorrectText(text string) ([]Candidate, int, error) {
 		if word == " " || word == "" {
 			continue
 		}
+		r := saveRegistr(word)
+		word = strings.ToLower(word)
+
 		exists, err := s.voc.WordExists(word)
 		if err != nil {
 			return nil, 0, err
@@ -213,6 +257,11 @@ func (s *SpellChecker) CorrectText(text string) ([]Candidate, int, error) {
 			continue
 		}
 		candidate, err := s.Correct(word)
+		candidate.Best = applyRegistr(candidate.Best, r)
+		for idx := range candidate.Variants {
+			candidate.Variants[idx] = applyRegistr(candidate.Variants[idx], r)
+		}
+
 		if err != nil {
 			return nil, 0, err
 		}

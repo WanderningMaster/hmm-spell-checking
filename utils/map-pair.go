@@ -32,6 +32,9 @@ func MapWordPair(line string) ([]Tuple, error) {
 
 	ptr := 0
 	maxLen := bigger(words)
+	if len(typo) != len(word) {
+		return nil, fmt.Errorf("invalid line format")
+	}
 	for ; ptr < maxLen; ptr += 1 {
 		chWord := ' '
 		chTypo := ' '
