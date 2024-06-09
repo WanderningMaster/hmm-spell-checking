@@ -6,6 +6,7 @@ import (
 	"os"
 	"regexp"
 	"strings"
+	"sync"
 	"time"
 	"unicode"
 
@@ -20,6 +21,7 @@ type SpellChecker struct {
 	maxVariants int
 	hmm         *hmm.HMM
 	voc         *vocabulary.Vocabulary
+	lambda      float64
 }
 type Candidate struct {
 	Valid    bool     `json:"valid"`
@@ -32,13 +34,10 @@ func (s *SpellChecker) SetMaxVariants(val int) {
 	s.maxVariants = val
 }
 
-func getPairs() ([]string, []string) {
-	rHandle, err := os.Open("data/en_keystrokes_pairs_clean.txt")
-	utils.Require(err)
-	rInsertionsHandle, err := os.Open("data/insersition_prep.txt")
+func getPairs() []string {
+	rHandle, err := os.Open("data/training_set.txt")
 	utils.Require(err)
 	defer rHandle.Close()
-	defer rInsertionsHandle.Close()
 
 	scanner := bufio.NewScanner(rHandle)
 	scanner.Split(bufio.ScanLines)
@@ -49,16 +48,7 @@ func getPairs() ([]string, []string) {
 		pairs = append(pairs, line)
 	}
 
-	insertionPairs := []string{}
-	scanner = bufio.NewScanner(rInsertionsHandle)
-	scanner.Split(bufio.ScanLines)
-
-	for scanner.Scan() {
-		line := scanner.Text()
-		insertionPairs = append(insertionPairs, line)
-	}
-
-	return pairs, insertionPairs
+	return pairs
 }
 
 func getRawVocabulary() []string {
@@ -79,17 +69,17 @@ func getRawVocabulary() []string {
 	return words
 }
 
-func loadModel(withLogs bool) *hmm.HMM {
+func loadModel(withLogs bool, lambda float64) *hmm.HMM {
 	logger := logger.GetLogger()
 
-	pairs, insertionPairs := getPairs()
+	pairs := getPairs()
 	start := time.Now()
 	model, err := hmm.New(hmm.WithCache)
 	if err != nil {
 		logger.Warn(fmt.Sprintf("Err: %v, skipping...", err))
 		model, _ = hmm.New()
 
-		model.Load(pairs, insertionPairs)
+		model.Load(pairs, lambda)
 	}
 	logger.Info(
 		fmt.Sprintf("Loaded model into memory in: %s", time.Since(start)),
@@ -151,18 +141,70 @@ func logProbs(model *hmm.HMM) {
 	logger.Info("Finished.")
 }
 
-func NewSpellChecker(maxVariant int) *SpellChecker {
-	hmm := loadModel(true)
+func NewSpellChecker(maxVariant int, lambda float64) *SpellChecker {
+	hmm := loadModel(true, lambda)
 	voc := loadVocabulary()
 
 	return &SpellChecker{
 		hmm:         hmm,
 		voc:         voc,
 		maxVariants: maxVariant,
+		lambda:      lambda,
 	}
 }
 
-func (s *SpellChecker) Correct(word string) (Candidate, error) {
+func (s *SpellChecker) CorrectAssert(
+	word string,
+	actual string,
+	counter chan struct{},
+	sem chan struct{},
+	wg *sync.WaitGroup,
+) {
+	sem <- struct{}{}
+	defer wg.Done()
+	candidates := viterbi.ViterbiKBest(
+		[]rune(word),
+		s.hmm,
+		s.maxVariants,
+	)
+
+	for _, c := range candidates {
+		if string(c) == actual {
+			counter <- struct{}{}
+			break
+		}
+	}
+
+	<-sem
+}
+
+func (s *SpellChecker) CorrectAssertSync(
+	word string,
+	actual string,
+) bool {
+	candidates := viterbi.ViterbiKBest(
+		[]rune(word),
+		s.hmm,
+		s.maxVariants,
+	)
+
+	for _, c := range candidates {
+		if string(c) == actual {
+			return true
+		}
+	}
+	return false
+}
+
+func (s *SpellChecker) Correct(
+	word string,
+	dataChan chan Candidate,
+	wg *sync.WaitGroup,
+	sem chan struct{},
+	r []bool,
+) {
+	sem <- struct{}{}
+	defer wg.Done()
 	candidates := viterbi.ViterbiKBest(
 		[]rune(word),
 		s.hmm,
@@ -185,8 +227,13 @@ func (s *SpellChecker) Correct(word string) (Candidate, error) {
 			res.Variants = append(res.Variants, string(c))
 		}
 	}
+	res.Best = applyRegistr(res.Best, r)
+	for idx := range res.Variants {
+		res.Variants[idx] = applyRegistr(res.Variants[idx], r)
+	}
 
-	return res, nil
+	dataChan <- res
+	<-sem
 }
 
 func sanitizeInput(text string) string {
@@ -205,7 +252,7 @@ func tokenize(text string) []string {
 	return matches
 }
 
-func saveRegistr(word string) []bool {
+func SaveRegistr(word string) []bool {
 	r := []bool{}
 	for _, ch := range word {
 		if unicode.IsUpper(ch) {
@@ -235,13 +282,18 @@ func (s *SpellChecker) CorrectText(text string) ([]Candidate, int, error) {
 	text = sanitizeInput(text)
 	words := tokenize(text)
 
+	wg := sync.WaitGroup{}
+	dataChan := make(chan Candidate, len(words))
+	maxConcurrency := 200
+	sem := make(chan struct{}, maxConcurrency)
+
 	candidates := []Candidate{}
 	totalErrors := 0
 	for _, word := range words {
 		if word == " " || word == "" {
 			continue
 		}
-		r := saveRegistr(word)
+		r := SaveRegistr(word)
 		word = strings.ToLower(word)
 
 		exists, err := s.voc.WordExists(word)
@@ -256,17 +308,15 @@ func (s *SpellChecker) CorrectText(text string) ([]Candidate, int, error) {
 			candidates = append(candidates, candidate)
 			continue
 		}
-		candidate, err := s.Correct(word)
-		candidate.Best = applyRegistr(candidate.Best, r)
-		for idx := range candidate.Variants {
-			candidate.Variants[idx] = applyRegistr(candidate.Variants[idx], r)
-		}
-
-		if err != nil {
-			return nil, 0, err
-		}
-		candidates = append(candidates, candidate)
+		wg.Add(1)
+		go s.Correct(word, dataChan, &wg, sem, r)
 		totalErrors += 1
+	}
+	wg.Wait()
+	close(dataChan)
+
+	for c := range dataChan {
+		candidates = append(candidates, c)
 	}
 
 	return candidates, totalErrors, nil

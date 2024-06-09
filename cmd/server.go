@@ -24,7 +24,9 @@ func StartServer() {
 		AllowOrigins: []string{"http://localhost:5173"},
 		AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
 	}))
-	spellChecker := services.NewSpellChecker(30)
+
+	lambda := 0.035
+	spellChecker := services.NewSpellChecker(30, lambda)
 
 	e.POST("api/spell-check", func(c echo.Context) error {
 		req := SpellCheckRequest{}

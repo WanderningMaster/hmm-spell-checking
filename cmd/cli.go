@@ -8,14 +8,15 @@ import (
 )
 
 func RunCli() {
-	spellChecker := services.NewSpellChecker(30)
-	input := "Thry're"
+	lambda := 0.035
+	spellChecker := services.NewSpellChecker(30, lambda)
+	input := "U've rjally dnjoyed the aovie we wxtched last noght"
 
 	candidates, _, err := spellChecker.CorrectText(input)
 	utils.Require(err)
 
-	fmt.Println("Best: ", candidates[0].Best)
-	for _, c := range candidates[0].Variants {
+	fmt.Println(input)
+	for _, c := range candidates {
 		fmt.Println(c)
 	}
 }

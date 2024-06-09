@@ -3,17 +3,19 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"io"
+	"math"
 	"os"
 	"strings"
 	"sync"
+	"time"
 
+	"github.com/WanderningMaster/hmm-spell-checking/internal/logger"
 	"github.com/WanderningMaster/hmm-spell-checking/services"
 	"github.com/WanderningMaster/hmm-spell-checking/utils"
 )
 
 func getPairs() [][]string {
-	rHandle, err := os.Open("data/testing_data.txt")
+	rHandle, err := os.Open("data/testing_set.txt")
 	defer rHandle.Close()
 
 	utils.Require(err)
@@ -32,81 +34,174 @@ func getPairs() [][]string {
 	return pairs
 }
 
-func measure(maxVairiants int, sem chan struct{}, wg *sync.WaitGroup, f io.Writer) {
-	defer wg.Done()
-
-	sem <- struct{}{}
-	spellChecker := services.NewSpellChecker(maxVairiants)
-
-	testingPairs := getPairs()
-
-	matched := 0
-	all := len(testingPairs)
-	for _, pair := range testingPairs {
-		canidate, _ := spellChecker.Correct(pair[0])
-		if canidate.Best == strings.ToLower(pair[1]) {
-			matched += 1
-		} else {
-			for _, c := range canidate.Variants {
-				if c == strings.ToLower(pair[1]) {
-					matched += 1
-				}
-			}
+func checkPair(c services.Candidate, actual string) bool {
+	if c.Best == actual {
+		return true
+	}
+	for _, c := range c.Variants {
+		if c == actual {
+			return true
 		}
 	}
 
-	fmt.Println("MAX_VAIRANTS: ", maxVairiants)
-	fmt.Fprintf(f, "MAX_VAIRANTS: %d\n", maxVairiants)
-
-	accr := float64(matched) * 100.0 / float64(all)
-	fmt.Printf("Matched %d/%d\nAccuracy: %.3f %%\n\n", matched, all, accr)
-	fmt.Fprintf(f, "Matched %d/%d\nAccuracy: %.3f %%\n\n", matched, all, accr)
-
-	<-sem
+	return false
 }
 
-func accuracyWithMaxVariants() {
-	f, err := os.Create("measures/measures_variants_with_smoothing")
+func lambda_accuracy(fileName string, lambda float64) {
+	// f, err := os.OpenFile(fileName, os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
+	// utils.Require(err)
+
+	maxConcurrency := 200
+	sem := make(chan struct{}, maxConcurrency)
+	spellChecker := services.NewSpellChecker(30, lambda)
+
+	testingPairs := getPairs()
+	all := len(testingPairs)
+
+	matched := 0
+	counter := make(chan struct{}, all)
+	wg := sync.WaitGroup{}
+	for _, pair := range testingPairs {
+		wg.Add(1)
+		go spellChecker.CorrectAssert(pair[0], pair[1], counter, sem, &wg)
+	}
+	wg.Wait()
+	close(counter)
+	close(sem)
+
+	for range counter {
+		matched += 1
+	}
+
+	accr := float64(matched) * 100.0 / float64(all)
+	fmt.Printf("Lambda %v Matched %d/%d\nAccuracy: %.3f %%\n", lambda, matched, all, accr)
+	// f.WriteString(
+	// 	fmt.Sprintf("%.3f %.3f\n", accr, lambda),
+	// )
+}
+
+func variants_accuracy(fileName string, maxVariants int) {
+	f, err := os.OpenFile(fileName, os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
 	utils.Require(err)
-	maxVariants := []int{10, 20, 30, 40, 50, 60, 70, 80, 90, 100}
-	nWorkers := len(maxVariants)
-	maxConcurrency := 2
+	maxConcurrency := 200
 	sem := make(chan struct{}, maxConcurrency)
 
-	wg := sync.WaitGroup{}
-	wg.Add(nWorkers)
-	for _, m := range maxVariants {
-		go func(m int) {
-			measure(m, sem, &wg, f)
-		}(m)
-	}
-
-	wg.Wait()
-	close(sem)
-}
-
-func accuracy() {
-	f, err := os.Create("measures/measures_smoothing")
-	utils.Require(err)
-	spellChecker := services.NewSpellChecker(10)
+	lambda := 0.225
+	spellChecker := services.NewSpellChecker(maxVariants, lambda)
 
 	testingPairs := getPairs()
+	all := len(testingPairs)
 
 	matched := 0
-	all := len(testingPairs)
+	counter := make(chan struct{}, all)
+	wg := sync.WaitGroup{}
 	for _, pair := range testingPairs {
-		canidate, _ := spellChecker.Correct(pair[0])
-		if canidate.Best == strings.ToLower(pair[1]) {
-			matched += 1
-		}
+		wg.Add(1)
+		go spellChecker.CorrectAssert(pair[0], pair[1], counter, sem, &wg)
+	}
+	wg.Wait()
+	close(counter)
+	close(sem)
+
+	for range counter {
+		matched += 1
 	}
 
 	accr := float64(matched) * 100.0 / float64(all)
-	fmt.Printf("Matched %d/%d\nAccuracy: %.3f %%\n", matched, all, accr)
-	fmt.Fprintf(f, "Matched %d/%d\nAccuracy: %.3f %%\n", matched, all, accr)
+	fmt.Printf("Max variants %v Matched %d/%d\nAccuracy: %.3f %%\n", maxVariants, matched, all, accr)
+	f.WriteString(
+		fmt.Sprintf("%.3f %d\n", accr, maxVariants),
+	)
+}
+
+func measureTime(spellChecker *services.SpellChecker) time.Duration {
+	maxConcurrency := 200
+	sem := make(chan struct{}, maxConcurrency)
+
+	testingPairs := getPairs()
+	all := len(testingPairs)
+
+	matched := 0
+	counter := make(chan struct{}, all)
+	start := time.Now()
+	wg := sync.WaitGroup{}
+	for _, pair := range testingPairs {
+		wg.Add(1)
+		go spellChecker.CorrectAssert(pair[0], pair[1], counter, sem, &wg)
+	}
+	wg.Wait()
+	end := time.Since(start)
+	close(counter)
+	close(sem)
+
+	for range counter {
+		matched += 1
+	}
+
+	return end
+}
+func variants_efficiency(fileName string, maxVariants int) {
+	f, err := os.OpenFile(fileName, os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
+	utils.Require(err)
+
+	lambda := 0.225
+	spellChecker := services.NewSpellChecker(maxVariants, lambda)
+
+	var totalDuration time.Duration
+	for range 10 {
+		totalDuration += measureTime(spellChecker)
+	}
+	avrg := totalDuration / time.Duration(10)
+
+	fmt.Printf("Max variants %v \nTime: %v\n", maxVariants, avrg)
+	f.WriteString(
+		fmt.Sprintf("%d %d\n", avrg.Milliseconds(), maxVariants),
+	)
+}
+
+func measureTimeSync(spellChecker *services.SpellChecker) time.Duration {
+	testingPairs := getPairs()
+
+	matched := 0
+	start := time.Now()
+	for _, pair := range testingPairs {
+		if spellChecker.CorrectAssertSync(pair[0], pair[1]) {
+			matched += 1
+		}
+	}
+	end := time.Since(start)
+
+	return end
+}
+func variants_efficiency_sync(fileName string, maxVariants int) {
+	f, err := os.OpenFile(fileName, os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
+	utils.Require(err)
+
+	lambda := 0.225
+	spellChecker := services.NewSpellChecker(maxVariants, lambda)
+
+	var totalDuration time.Duration
+	for range 10 {
+		totalDuration += measureTimeSync(spellChecker)
+	}
+	avrg := totalDuration / time.Duration(10)
+
+	fmt.Printf("Max variants %v \nTime: %v\n", maxVariants, avrg)
+	f.WriteString(
+		fmt.Sprintf("%d %d\n", avrg.Milliseconds(), maxVariants),
+	)
+}
+
+func roundFloat(val float64, precision uint) float64 {
+	ratio := math.Pow(10, float64(precision))
+	return math.Round(val*ratio) / ratio
 }
 
 func main() {
-	// accuracyWithMaxVariants()
-	accuracy()
+	start := time.Now()
+	for v := 43; v <= 50; v++ {
+		variants_efficiency_sync("measures/speed_sync.txt", v)
+	}
+	logger := logger.GetLogger()
+	logger.Info(time.Since(start).String())
 }

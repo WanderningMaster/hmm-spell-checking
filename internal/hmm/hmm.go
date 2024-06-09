@@ -20,7 +20,6 @@ type Coord struct {
 
 type HMM struct {
 	data            [][]utils.Tuple
-	insertionData   [][]utils.Tuple
 	ready           bool
 	TransitionProbs map[rune]map[rune]float64
 	EmissionProbs   map[rune]map[rune]float64
@@ -39,7 +38,6 @@ func New(withFuncs ...func(m *HMM) error) (*HMM, error) {
 	model := &HMM{
 		ready:           false,
 		data:            [][]utils.Tuple{},
-		insertionData:   [][]utils.Tuple{},
 		TransitionProbs: make(map[rune]map[rune]float64),
 		EmissionProbs:   make(map[rune]map[rune]float64),
 		InitProbs:       map[rune]float64{},
@@ -103,18 +101,14 @@ func InitKeyboardLayout() map[rune]Coord {
 	}
 }
 
-func (m *HMM) Load(data []string, insertionData []string) {
+func (m *HMM) Load(data []string, lambda float64) {
 	for _, s := range data {
 		records, _ := utils.MapWordPair(s)
 		m.data = append(m.data, records)
 	}
-	for _, s := range insertionData {
-		records, _ := utils.MapWordPair(s)
-		m.insertionData = append(m.insertionData, records)
-	}
 
 	m.calcTransitionMatrix()
-	m.calcEmissionMatrix()
+	m.calcEmissionMatrix(lambda)
 	m.calcInitialMatrix()
 	m.CacheModel()
 
@@ -225,7 +219,7 @@ func (m *HMM) calcTransitionMatrix() {
 	}
 }
 
-func (m *HMM) calcEmissionMatrix() {
+func (m *HMM) calcEmissionMatrix(lambda float64) {
 	rawEmissionCounts := make(map[rune]map[rune]int)
 	for _, seq := range m.data {
 		for i := 0; i < len(seq); i += 1 {
@@ -245,7 +239,6 @@ func (m *HMM) calcEmissionMatrix() {
 	}
 
 	m.EmissionProbs = make(map[rune]map[rune]float64)
-	lambda := 0.035
 	for state, observations := range rawEmissionCounts {
 		totalObservations := 0
 		for _, count := range observations {
@@ -260,7 +253,6 @@ func (m *HMM) calcEmissionMatrix() {
 			distanceProb := math.Exp(-lambda * distance)
 
 			m.EmissionProbs[state][observed] = countProb * distanceProb
-			// m.EmissionProbs[state][observed] = countProb
 		}
 	}
 }
