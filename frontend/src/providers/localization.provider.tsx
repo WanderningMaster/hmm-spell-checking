@@ -26,16 +26,16 @@ export const LocalizationProvider: React.FC<LocalizationProviderProps> = ({ chil
 		} 	
 		return textUA
 	}, [lang]) 
-	const handleChangeLang = (changes: any) => {
-		if(changes?.lang) {
-			setLang(changes.lang.newValue)
-		}
-	}
+	// const handleChangeLang = (changes: any) => {
+	// 	if(changes?.lang) {
+	// 		setLang(changes.lang.newValue)
+	// 	}
+	// }
 
 	React.useEffect(() => {
-		if(import.meta.env.MODE !== "development") {
-			chrome.storage.onChanged.addListener(handleChangeLang)
-		}
+		// if(import.meta.env.MODE !== "development") {
+		// 	chrome.storage.onChanged.addListener(handleChangeLang)
+		// }
 		getItem("lang")
 			.then((item) => {
 				if(item) {

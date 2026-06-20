@@ -1,4 +1,5 @@
-const isDev = import.meta.env.MODE === "development"
+// const isDev = import.meta.env.MODE === "development"
+const isDev = true
 
 type Key = 'text' | 'lang'
 export const useStorage = () => {	
